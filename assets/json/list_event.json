@@ -1,0 +1,26 @@
+[
+  {
+    "id": "event-1",
+    "image_url": "assets/images/event_1.jpg",
+    "title": "Promo Dicoding Scolarship for Woman",
+    "description": "Pendaftaran : 9 - 24 Maret 2022\nPengumuman : 31 Maret 2022\nRegister at : dicoding.com/p/womansday"
+  },
+  {
+    "id": "event-2",
+    "image_url": "assets/images/event_2.jpg",
+    "title": " GIT WORKFLOW",
+    "description": "Guest Speaker : Software Engineer intern Tokopedia\nModerator : Data Analyst Intern at Pt Mitra Adiperkasa, Tbk\nRegister at : bit.lyMLSJWeek1Git\nHTM : 15k"
+  },
+  {
+    "id": "event-3",
+    "image_url": "assets/images/event_3.jpg",
+    "title": "Harisenin ClassX - Graphic & Motion Design",
+    "description": "Guest Speaker : Hendry Jonathan, \nRegister at : https://docs.google.com/forms/d/e/1FAIpQLSdR1JviNR1uaRKdowRwMKukSISfSned8h6HEw71wPmnUXIHGQ/viewform bit.lyM\nHTM : free"
+  },
+  {
+    "id": "event-4",
+    "image_url": "assets/images/event_4.jpg",
+    "title": "Auditor & Financial Analyst",
+    "description": "Guest Speaker : Jeremy Jun & Belinda Merlim\nRegister at : harisenin.link/audit5\nHTM : free"
+  }
+]

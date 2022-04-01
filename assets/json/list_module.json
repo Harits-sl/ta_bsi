@@ -1,0 +1,63 @@
+[
+  {
+    "id": "modul-1",
+    "level": "Level 1",
+    "modul": "Pengenalan Flutter",
+    "materi_kelas": [
+      {
+        "id": "materi-1",
+        "nama_materi": "Apa itu Flutter",
+        "durasi": 3
+      },
+      {
+        "id": "materi-2",
+        "nama_materi": "Menjalankan Program Flutter",
+        "durasi": 3
+      }
+    ]
+  },
+  {
+    "id": "modul-2",
+    "level": "Level 2",
+    "modul": "Pengenalan Widget",
+    "materi_kelas": [
+      {
+        "id": "materi-3",
+        "nama_materi": "Apa itu Widget",
+        "durasi": 3
+      },
+      {
+        "id": "materi-4",
+        "nama_materi": "Stateless dan Statefull",
+        "durasi": 3
+      },
+      {
+        "id": "materi-5",
+        "nama_materi": "Scaffold",
+        "durasi": 3
+      },
+      {
+        "id": "materi-6",
+        "nama_materi": "Column dan Row",
+        "durasi": 3
+      }
+    ]
+  },
+  {
+    "id": "modul-3",
+    "level": "Level 3",
+    "modul": "Exercise",
+    "materi_kelas": [
+      {
+        "id": "quiz-1",
+        "nama_materi": "Quiz",
+        "durasi": 3
+      },
+      {
+        "id": "submission-1",
+        "nama_materi": "Submission",
+        "durasi": 3
+      }
+    ]
+  }
+]

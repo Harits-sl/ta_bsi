@@ -1,0 +1,14 @@
+[
+  {
+    "id": "youtube-1",
+    "id_youtube": "VPvVD8t02U8",
+    "image_url": "assets/images/youtube_1.png",
+    "title": "Flutter Course for Beginners - 37-hour Cross Platform App Development Tutorial"
+  },
+  {
+    "id": "youtube-2",
+    "id_youtube": "asNdz10WR6w",
+    "image_url": "assets/images/youtube_2.png",
+    "title": "Dart & Flutter Installation | Instalasi Dart & Flutter"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "article-1",
+    "image_url": "assets/images/article_1.jpg",
+    "title": "40 Tips that will change your coding skills forever",
+    "publisher": "Kesk -*-"
+  },
+  {
+    "id": "article-2",
+    "image_url": "assets/images/article_2.jpg",
+    "title": "Why Flutter Uses Dart",
+    "publisher": "Kesk -*-"
+  }
+]
