@@ -59,7 +59,6 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUpPage(),
           '/sign-in': (context) => SignInPage(),
           '/main': (context) => const MainPage(),
-          // '/home': (context) => const HomePage(),
           '/module': (context) => const ListModulePage(),
           '/course': (context) =>
               CoursePage(ModalRoute.of(context)?.settings.arguments),
