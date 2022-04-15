@@ -27,7 +27,11 @@ class CardYoutube extends StatelessWidget {
         width: 200,
         height: 180,
         decoration: BoxDecoration(
-          border: Border.all(color: grayColor),
+          color: whiteColor,
+          border: Border.all(
+            width: 0.5,
+            color: grayColor,
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(

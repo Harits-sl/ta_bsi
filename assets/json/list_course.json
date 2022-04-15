@@ -1,0 +1,16 @@
+[
+  {
+    "id": "course-1",
+    "course": "Dart",
+    "image_url": "assets/images/ic_dart.png",
+    "description": "Mempelajari dasar-dasar bahasa pemrograman dart, seperti variabel, comment dsb.",
+    "many_lesson": 10
+  },
+  {
+    "id": "course-2",
+    "course": "Flutter",
+    "image_url": "assets/images/ic_flutter.png",
+    "description": "Mempelajari dasar-dasar framework flutter, widget yang akan dipelajari yaitu Text, Image, Column, dsb.",
+    "many_lesson": 10
+  }
+]

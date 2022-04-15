@@ -40,7 +40,7 @@ class MainPage extends StatelessWidget {
             vertical: 16,
           ),
           decoration: BoxDecoration(
-            color: whiteColor,
+            color: backgroundColor,
             boxShadow: [
               BoxShadow(
                 blurRadius: 4,

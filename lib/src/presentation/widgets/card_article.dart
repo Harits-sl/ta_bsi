@@ -28,7 +28,11 @@ class CardArticle extends StatelessWidget {
         width: double.infinity,
         height: 80,
         decoration: BoxDecoration(
-          border: Border.all(color: grayColor),
+          color: whiteColor,
+          border: Border.all(
+            width: 0.5,
+            color: grayColor,
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(

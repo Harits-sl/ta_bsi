@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_bsi/src/config/theme/app_theme.dart';
 import 'package:ta_bsi/src/presentation/cubit/article/article_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/auth/auth_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/course/course_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/event/event_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/page/page_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/youtube/youtube_cubit.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AuthCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CourseCubit(),
         ),
         BlocProvider(
           create: (context) => EventCubit(),
