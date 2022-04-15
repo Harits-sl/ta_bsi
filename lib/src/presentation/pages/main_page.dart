@@ -45,7 +45,7 @@ class MainPage extends StatelessWidget {
               BoxShadow(
                 blurRadius: 4,
                 offset: const Offset(0, 1),
-                color: blueColor.withOpacity(0.20),
+                color: primaryColor.withOpacity(0.20),
               ),
             ],
           ),

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,97 +44,92 @@ class SignInPage extends StatelessWidget {
       );
     }
 
-    Widget formSignIn() {
-      return Container(
-        margin: EdgeInsets.only(
-          left: defaultMargin,
-          top: defaultMargin,
-          right: defaultMargin,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Hi, Welcome Back!',
-              style: blackTextStyle.copyWith(
-                fontSize: 24,
-                fontWeight: semiBold,
-              ),
-            ),
-            SizedBox(height: defaultMargin),
-            CustomTextField(
-              title: 'Email address',
-              controller: emailController,
-            ),
-            const SizedBox(height: 13),
-            CustomTextField(
-              title: 'Password',
-              isObscure: true,
-              controller: passwordController,
-            ),
-            const SizedBox(height: 21),
-            BlocConsumer<AuthCubit, AuthState>(
-              listener: (context, state) {
-                if (state is AuthFailed) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.error),
-                    ),
-                  );
-                }
-                if (state is AuthSuccess) {
-                  Go.routeWithPathAndRemove(context: context, path: '/main');
-                }
-              },
-              builder: (context, state) {
-                if (state is AuthLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return CustomButton(
-                  title: 'Sign in',
-                  backgroundColor: blueColor,
-                  borderRadius: 50,
-                  onPressed: signIn,
-                  textStyle: whiteTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: semiBold,
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 17),
-            CustomButton(
-              title: 'Sign up',
-              backgroundColor: grayColor,
-              borderRadius: 50,
-              onPressed: signUp,
-              textStyle: blackTextStyle.copyWith(
-                fontSize: 14,
-                fontWeight: semiBold,
-              ),
-            ),
-            kDebugMode
-                ? CustomButton(
-                    title: 'debug only',
-                    backgroundColor: grayColor,
-                    borderRadius: 50,
-                    onPressed: routeMainPage,
-                    textStyle: blackTextStyle.copyWith(
-                      fontSize: 14,
-                      fontWeight: semiBold,
-                    ),
-                  )
-                : const SizedBox(),
-          ],
+    Widget title() {
+      return Padding(
+        padding: EdgeInsets.all(defaultMargin),
+        child: Text(
+          'Hi, Welcome Back!',
+          style: blackTextStyle.copyWith(
+            fontSize: 24,
+            fontWeight: semiBold,
+          ),
         ),
       );
     }
 
+    Widget formSignIn() {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomTextField(
+            title: 'Email address',
+            controller: emailController,
+          ),
+          const SizedBox(height: 13),
+          CustomTextField(
+            title: 'Password',
+            isObscure: true,
+            controller: passwordController,
+          ),
+        ],
+      );
+    }
+
+    Widget buttonSignIn() {
+      return BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthFailed) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.error),
+              ),
+            );
+          }
+          if (state is AuthSuccess) {
+            Go.routeWithPathAndRemove(context: context, path: '/main');
+          }
+        },
+        builder: (context, state) {
+          if (state is AuthLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Container(
+            margin: const EdgeInsets.only(top: 21),
+            child: CustomButton(
+              title: 'Sign in',
+              backgroundColor: primaryColor,
+              borderRadius: 50,
+              onPressed: signIn,
+              textStyle: whiteTextStyle.copyWith(
+                fontSize: 14,
+                fontWeight: semiBold,
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    Widget buttonDebugOnly() {
+      return kDebugMode
+          ? CustomButton(
+              title: 'debug only',
+              backgroundColor: grayColor,
+              borderRadius: 50,
+              onPressed: routeMainPage,
+              textStyle: blackTextStyle.copyWith(
+                fontSize: 14,
+                fontWeight: semiBold,
+              ),
+            )
+          : const SizedBox();
+    }
+
     Widget orDivider() {
       return Padding(
-        padding: EdgeInsets.symmetric(horizontal: defaultMargin, vertical: 26),
+        padding: const EdgeInsets.symmetric(vertical: 26),
         child: Row(
           children: [
             Expanded(
@@ -165,19 +158,44 @@ class SignInPage extends StatelessWidget {
       );
     }
 
-    Widget signInGoogle() {
-      return Padding(
-        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        child: CustomButton(
-          title: 'Continue with Google',
-          backgroundColor: blackColor,
-          borderRadius: 50,
-          onPressed: signInWithGoogle,
-          iconUrl: 'assets/images/ic_google.png',
-          textStyle: whiteTextStyle.copyWith(
-            fontSize: 14,
-            fontWeight: semiBold,
-          ),
+    Widget buttonSignInGoogle() {
+      return CustomButton(
+        title: 'Continue with Google',
+        backgroundColor: blackColor,
+        borderRadius: 50,
+        onPressed: signInWithGoogle,
+        iconUrl: 'assets/images/ic_google.png',
+        textStyle: whiteTextStyle.copyWith(
+          fontSize: 14,
+          fontWeight: semiBold,
+        ),
+      );
+    }
+
+    Widget createAccount() {
+      return Container(
+        margin: const EdgeInsets.only(top: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'don\'t have an account? ',
+              style: darkGrayTextStyle.copyWith(
+                fontSize: 12,
+                fontWeight: light,
+              ),
+            ),
+            GestureDetector(
+              onTap: signUp,
+              child: Text(
+                'Sign-up',
+                style: primaryTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: light,
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }
@@ -188,9 +206,28 @@ class SignInPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             logo(),
-            formSignIn(),
-            orDivider(),
-            signInGoogle(),
+            title(),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: defaultMargin,
+              ),
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Column(
+                children: [
+                  formSignIn(),
+                  buttonSignIn(),
+                  buttonDebugOnly(),
+                  orDivider(),
+                  buttonSignInGoogle(),
+                  createAccount(),
+                ],
+              ),
+            ),
           ],
         ),
       );

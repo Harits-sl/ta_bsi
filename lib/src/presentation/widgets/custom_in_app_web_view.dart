@@ -34,6 +34,10 @@ class _CustomInAppWebViewState extends State<CustomInAppWebView> {
 
   @override
   void dispose() {
+    // tampilan portrait
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     super.dispose();
   }
 
@@ -43,16 +47,23 @@ class _CustomInAppWebViewState extends State<CustomInAppWebView> {
       key: webViewKey,
       initialUrlRequest: URLRequest(
         url: Uri.parse(
-          "https://www.youtube.com/embed/${widget.idYoutube}?fs=1",
+          "https://www.youtube.com/embed/${widget.idYoutube}?&autoplay=1&fs=1",
         ),
       ),
       initialOptions: options,
       onWebViewCreated: (controller) {
         webViewController = controller;
+
+        // fullscreen landscape
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.landscapeLeft,
+          DeviceOrientation.landscapeRight,
+        ]);
       },
       onLoadStart: (InAppWebViewController controller, Uri? url) {},
       onLoadStop: (InAppWebViewController controller, Uri? url) {},
       onEnterFullscreen: (InAppWebViewController controller) {
+        // fullscreen landscape
         SystemChrome.setPreferredOrientations([
           DeviceOrientation.landscapeLeft,
           DeviceOrientation.landscapeRight,
@@ -60,6 +71,7 @@ class _CustomInAppWebViewState extends State<CustomInAppWebView> {
       },
       onExitFullscreen: (InAppWebViewController controller) {
         SystemChrome.setPreferredOrientations([
+        // tampilan portrait
           DeviceOrientation.portraitUp,
         ]);
       },

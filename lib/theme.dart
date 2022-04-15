@@ -5,17 +5,18 @@ import 'package:google_fonts/google_fonts.dart';
 double defaultMargin = 24.0;
 
 // colors
+Color primaryColor = const Color(0xff2E3192);
 Color whiteColor = const Color(0xffFFFFFF);
 Color blackColor = const Color(0xff1A1A1A);
-Color blueColor = const Color(0xff2E3192);
 Color grayColor = const Color(0xffDCDCDC);
 Color lightGrayColor = const Color(0xffE0E4EC);
 Color darkGrayColor = const Color(0xff9C9CA4);
+Color backgroundColor = const Color(0xffF5F6FF);
 
 // TextStyle
+TextStyle primaryTextStyle = GoogleFonts.poppins(color: primaryColor);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: whiteColor);
 TextStyle blackTextStyle = GoogleFonts.poppins(color: blackColor);
-TextStyle blueTextStyle = GoogleFonts.poppins(color: blueColor);
 TextStyle grayTextStyle = GoogleFonts.poppins(color: grayColor);
 TextStyle darkGrayTextStyle = GoogleFonts.poppins(color: darkGrayColor);
 

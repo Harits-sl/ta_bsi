@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ta_bsi/src/data/models/article_model.dart';
 import 'package:ta_bsi/src/presentation/widgets/header_back_and_title.dart';
 import 'package:ta_bsi/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailArticlePage extends StatelessWidget {
-  const DetailArticlePage(this.arguments, {Key? key}) : super(key: key);
+  const DetailArticlePage(this.article, {Key? key}) : super(key: key);
 
-  final dynamic arguments;
+  final Object? article;
 
   @override
   Widget build(BuildContext context) {
+    final ArticleModel _article = article as ArticleModel;
+
     final List<Map<String, dynamic>> listDummyDetailArticle = [
       {
         'id': 'article-1',
@@ -24,10 +27,10 @@ class DetailArticlePage extends StatelessWidget {
 
     /// filter atau mencari materi yang cocok dari argument id dengan
     /// listDummyCourse
-    Map<String, dynamic> _article = listDummyDetailArticle
-        .where((item) => item['id'] == arguments['id'])
-        .toList()
-        .first;
+    // Map<String, dynamic> _article = listDummyDetailArticle
+    //     .where((item) => item['id'] == article.id)
+    //     .toList()
+    //     .first;
 
     void onPressed(String url) async {
       if (!await launch(url)) throw 'Could not launch $url';
@@ -40,7 +43,7 @@ class DetailArticlePage extends StatelessWidget {
           left: defaultMargin,
           right: defaultMargin,
         ),
-        child: Image.asset(_article['image_url']),
+        child: Image.asset(_article.imageUrl),
       );
     }
 
@@ -51,7 +54,7 @@ class DetailArticlePage extends StatelessWidget {
           left: defaultMargin,
           right: defaultMargin,
         ),
-        child: Text(_article['article']),
+        child: Text(_article.article),
       );
     }
 
@@ -68,8 +71,8 @@ class DetailArticlePage extends StatelessWidget {
           children: [
             Text('See more:'),
             TextButton(
-              onPressed: () => onPressed(_article['link']),
-              child: Text(_article['link']),
+              onPressed: () => onPressed(_article.link),
+              child: Text(_article.link),
             ),
           ],
         ),

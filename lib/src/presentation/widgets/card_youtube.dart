@@ -17,9 +17,7 @@ class CardYoutube extends StatelessWidget {
       Go.routeWithPath(
         context: context,
         path: '/youtube',
-        arguments: {
-          'id': youtube.idYoutube,
-        },
+        arguments: youtube,
       );
     }
 

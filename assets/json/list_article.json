@@ -3,12 +3,16 @@
     "id": "article-1",
     "image_url": "assets/images/article_1.jpg",
     "title": "40 Tips that will change your coding skills forever",
-    "publisher": "Kesk -*-"
+    "publisher": "Kesk -*-",
+    "article": "In this summary, I list some of the things that have helped me in my career. It reads fast, but applying them well can take a lifetime. I have been developing applications for almost 15 years, and still, sometimes, I have to stop and think in the essential parts of this profession.\n\n1. Take the code and break down big pieces of code into small functions.\n2. If by the time you leave work you haven't solved the problem. Turn off the computer and leave it for the next day. Don't think about the problem anymore.\n3. YAGNI principle: “You aren't gonna need it” or don't codify more than you've been asked to. Don't anticipate the future, and just create something that works as soon as possible. Code only the necessary parts to solve the current problem.\n4. You don't need to know everything, nor all the existing frameworks. The most significant thing is to have a good base. Know the language in depth before starting with a Framework and learn fundamental things like the SOLID principles or how to write clean code.\n5. KISS: “Keep it simple, stupid” or “keep it stupid simple” is a design principle that states that most systems work best if they are kept simple rather than made complicated. And while this is logical, it is sometimes difficult to achieve.\n6. Don't overthink it.\n7. If you're with a problem or a bug too long, walk away, and come back to it later. Often, the best solutions to the problems occur to me on the way from my office to the bathroom. Taking a walk away is also advisable when you are angry with a client or with a coworker, especially if you want to keep your job.",
+    "link": "https://medium.com/swlh/40-tips-that-will-change-your-coding-skills-forever-bf9d6b936ccc"
   },
   {
     "id": "article-2",
     "image_url": "assets/images/article_2.jpg",
     "title": "Why Flutter Uses Dart",
-    "publisher": "Kesk -*-"
+    "publisher": "Wm Leler",
+    "article": "Many linguists believe that the natural language a person speaks affects how they think. Does the same concept apply to computer languages? Programmers working in different kinds of programming languages often come up with radically different solutions to problems. As a more extreme example, computer scientists eliminated the goto statement to encourage more structured programs (not quite the same as totalitarian leaders in the novel 1984 expunging heretical words from natural language to eliminate thoughtcrimes, but you get the idea).\n\nWhat does this have to do with Flutter and Dart? Quite a bit actually. The early Flutter team evaluated more than a dozen languages, and picked Dart because it matched the way they were building user interfaces.Dart is a big reason why developers love Flutter. As one tweet puts it:",
+    "link": "https://medium.com/hackernoon/why-flutter-uses-dart-dd635a054ebf"
   }
 ]

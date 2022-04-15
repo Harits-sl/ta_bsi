@@ -197,7 +197,7 @@ Full Stack Web Developer: harisenin.link/Webdev6
           alignment: Alignment.bottomCenter,
           child: CustomButton(
             title: 'Daftar Event',
-            backgroundColor: blueColor,
+            backgroundColor: primaryColor,
             borderRadius: 50,
             onPressed: () => onTap('https://${_event['link_regist']}'),
             textStyle: whiteTextStyle.copyWith(

@@ -44,7 +44,7 @@ class _ExplorePageState extends State<ExplorePage> {
             ),
             Text(
               'see all',
-              style: blueTextStyle.copyWith(
+              style: primaryTextStyle.copyWith(
                 fontSize: 10,
                 fontWeight: semiBold,
               ),
@@ -126,6 +126,8 @@ class _ExplorePageState extends State<ExplorePage> {
           builder: (context, youtubeState) {
             return BlocBuilder<ArticleCubit, ArticleState>(
               builder: (context, articleState) {
+                print(articleState);
+
                 if (youtubeState is YoutubeLoading &&
                     articleState is ArticleLoading) {
                   return const Center(child: CircularProgressIndicator());

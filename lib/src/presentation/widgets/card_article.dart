@@ -18,9 +18,7 @@ class CardArticle extends StatelessWidget {
       Go.routeWithPath(
         context: context,
         path: '/detail-article',
-        arguments: {
-          'id': id,
-        },
+        arguments: article,
       );
     }
 

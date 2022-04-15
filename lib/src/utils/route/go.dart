@@ -8,8 +8,11 @@ class Go {
     );
   }
 
-  static void routeWithPath(
-      {required BuildContext context, required String path, Map? arguments}) {
+  static void routeWithPath({
+    required BuildContext context,
+    required String path,
+    Object? arguments,
+  }) {
     Navigator.of(context).pushNamed(path, arguments: arguments);
   }
 
