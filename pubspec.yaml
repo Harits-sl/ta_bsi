@@ -29,6 +29,7 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
+  expandable: ^5.0.1
   firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
   flutter:

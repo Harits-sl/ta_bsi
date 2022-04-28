@@ -24,7 +24,7 @@ class HeaderBackAndTitle extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => onTap(),
-            child: Image.asset('assets/images/ic_back.jpg', width: 24),
+            child: Image.asset('assets/images/ic_back.png', width: 24),
           ),
           Text(
             title,

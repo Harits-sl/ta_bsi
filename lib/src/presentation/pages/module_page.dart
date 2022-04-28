@@ -1,4 +1,7 @@
+import 'dart:math' as math;
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+
 import 'package:ta_bsi/src/data/dataSources/local/json/module_service.dart';
 import 'package:ta_bsi/src/data/models/module_model.dart';
 import 'package:ta_bsi/src/presentation/widgets/header_back_and_title.dart';
@@ -6,8 +9,15 @@ import 'package:ta_bsi/src/utils/helper/string_helper.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
-class ListModulePage extends StatelessWidget {
-  const ListModulePage({Key? key}) : super(key: key);
+class ModulePage extends StatefulWidget {
+  const ModulePage({Key? key}) : super(key: key);
+
+  @override
+  State<ModulePage> createState() => _ModulePageState();
+}
+
+class _ModulePageState extends State<ModulePage> {
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -148,41 +158,94 @@ class ListModulePage extends StatelessWidget {
         );
       }
 
-      Widget listModule() {
-        return ListView.builder(
-          itemCount: listDummyModule.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  listDummyModule[index]['level'],
-                  style: darkGrayTextStyle.copyWith(
-                    fontSize: 11,
-                    fontWeight: light,
+      // Widget listModule() {
+      //   return ListView.builder(
+      //     itemCount: listDummyModule.length,
+      //     shrinkWrap: true,
+      //     physics: const NeverScrollableScrollPhysics(),
+      //     itemBuilder: (context, index) {
+      //       return Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         children: [
+      //           Text(
+      //             listDummyModule[index]['level'],
+      //             style: darkGrayTextStyle.copyWith(
+      //               fontSize: 11,
+      //               fontWeight: light,
+      //             ),
+      //           ),
+      //           const SizedBox(height: 2),
+      //           Text(
+      //             listDummyModule[index]['modul'],
+      //             style: blackTextStyle.copyWith(
+      //               fontSize: 14,
+      //               fontWeight: semiBold,
+      //             ),
+      //           ),
+      //           itemModule(listDummyModule[index]['materi_kelas']),
+      //           const SizedBox(height: 25),
+      //         ],
+      //       );
+      //     },
+      //   );
+      // }
+
+      Widget expansionPanelModule() {
+        return ExpandableTheme(
+          data: ExpandableThemeData(
+            animationDuration: const Duration(milliseconds: 200),
+            iconRotationAngle: 45 * math.pi / 180, // 45 derajat
+            iconColor: blackColor,
+            expandIcon: Icons.chevron_right_rounded,
+            tapHeaderToExpand: false,
+            inkWellBorderRadius: BorderRadius.circular(50), // rounded
+          ),
+          child: Column(
+            children: listDummyModule.map((item) {
+              return Container(
+                padding: EdgeInsets.only(
+                  left: defaultMargin,
+                  right: defaultMargin,
+                  bottom: 12,
+                ),
+                child: ExpandablePanel(
+                  header: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item['level'],
+                        style: darkGrayTextStyle.copyWith(
+                          fontSize: 11,
+                          fontWeight: light,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        item['modul'],
+                        style: blackTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: semiBold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  collapsed: const SizedBox(), //  kosong
+                  expanded: Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 12, // dikurang dengan padding container
+                    ),
+                    child: itemModule(item['materi_kelas']),
                   ),
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  listDummyModule[index]['modul'],
-                  style: blackTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: semiBold,
-                  ),
-                ),
-                itemModule(listDummyModule[index]['materi_kelas']),
-                const SizedBox(height: 25),
-              ],
-            );
-          },
+              );
+            }).toList(),
+          ),
         );
       }
 
       return Container(
-        margin: EdgeInsets.all(defaultMargin),
-        child: listModule(),
+        margin: EdgeInsets.symmetric(vertical: defaultMargin),
+        child: expansionPanelModule(),
       );
     }
 
