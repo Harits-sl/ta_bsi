@@ -30,15 +30,10 @@ class MainPage extends StatelessWidget {
       }
     }
 
-    Widget navigationButton() {
+    Widget navBarButton() {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          height: 55,
-          padding: EdgeInsets.symmetric(
-            horizontal: defaultMargin,
-            vertical: 16,
-          ),
           decoration: BoxDecoration(
             color: backgroundColor,
             boxShadow: [
@@ -50,7 +45,6 @@ class MainPage extends StatelessWidget {
             ],
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               NavbarItem(
                 index: 0,
@@ -84,7 +78,7 @@ class MainPage extends StatelessWidget {
           return Stack(
             children: [
               buildContent(currentIndex),
-              navigationButton(),
+              navBarButton(),
             ],
           );
         },
