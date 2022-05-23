@@ -126,7 +126,6 @@ class _ExplorePageState extends State<ExplorePage> {
           builder: (context, youtubeState) {
             return BlocBuilder<ArticleCubit, ArticleState>(
               builder: (context, articleState) {
-                print(articleState);
 
                 if (youtubeState is YoutubeLoading &&
                     articleState is ArticleLoading) {

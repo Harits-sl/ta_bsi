@@ -1,0 +1,173 @@
+[
+  {
+    "id": "materi-1",
+    "nama_materi": "Sejarah Dart",
+    "image_url": null,
+    "materi": [
+      {
+        "paragraf": "Dart merupakan bahasa pemrograman yang dikembangkan oleh google untuk kebutuhan dalam membuat aplikasi android atau mobile, front-end, web, IoT, back-end (CLI), dan Game."
+      },
+      {
+        "paragraf": "Dart menerapkan konsep pemrograman berorientasi objek (OOP) dimana struktur kode berada dalam class yang didalamnya berisi method maupun variabel."
+      },
+      {
+        "paragraf": "Dart sendiri menggunakan C-Style syntax sehingga mekanisme dart mirip dengan bahasa pemrograman C, java, javascript, dan Swift"
+      },
+      {
+        "paragraf": "Dart awalnya dikenalkan pada GOTO conference pada tahun 2012."
+      },
+      {
+        "paragraf": "Project ini didirikan oleh Lars Bak dan Kasper Lund dari Google, sampai akhirnya versi Dart 1.0 dirilis pada 14 November 2013."
+      },
+      {
+        "paragraf": "Bulan Agustus 2018, Dart 2.0 dirilis dengan perubahan bahasa seperti perubahan type system."
+      },
+      {
+        "paragraf": "Jauh sebelum ada Flutter, Dart awalnya digunakan untuk membuat web yang ada di Google. Tujuan awal pembuatan Dart adalah untuk menggantikan JavaScript yang dinilai memiliki banyak kelemahan."
+      },
+      {
+        "paragraf": "Sejak saat itu, rilisnya Flutter SDK untuk pengembangan iOS, Android, dan web menjadi sorotan baru pada bahasa Dart."
+      }
+    ]
+  },
+  {
+    "id": "materi-2",
+    "nama_materi": "Mengapa perlu belajar Dart",
+    "image_url": null,
+    "materi": [
+      {
+        "paragraf": "Bahasa pemrograman ini dikembangkan untuk mudah digunakan dalam pengembangan, sesuai dengan pengembangan aplikasi modern."
+      },
+      {
+        "paragraf": "Dan memiliki implementasi berkinerja tinggi."
+      },
+      {
+        "paragraf": "Bahkan, bahasa ini juga dapat digunakan sebelum dikompilasi."
+      },
+      {
+        "paragraf": "Lalu adakah alasan yang bagus untuk memulai belajar pemrograman dengan Dart?"
+      },
+      {
+        "paragraf": "• Dengan Dart, Anda hanya perlu satu codebase untuk dapat mengembangkan aplikasi pada berbagai platform seperti web, Android, dan iOS."
+      },
+      {
+        "paragraf": "• Penggunaan bahasa Dart itu gratis (open source) dan dikembangkan oleh komunitas developer ahli yang aktif dan terbuka."
+      },
+      {
+        "paragraf": "• Dart merupakan bahasa yang wajib Anda kuasai untuk mengembangkan aplikasi Flutter."
+      },
+      {
+        "paragraf": "• Bahasa Dart dirancang supaya familier dengan bahasa pemrograman lain sehingga mudah bagi yang sudah mengerti bahasa pemrograman lain maupun bagi yang baru memulai perjalanannya sebagai developer."
+      },
+      {
+        "paragraf": "• Dart adalah bahasa yang dioptimalkan untuk pengembangan UI secara cepat dan produktif pada banyak platform."
+      }
+    ]
+  },
+  {
+    "id": "materi-3",
+    "nama_materi": "Karakteristik Dart",
+    "image_url": null,
+    "materi": [
+      {
+        "paragraf": "Dart merupakan bahasa modern dan berfitur lengkap. Dart juga memiliki banyak kemiripan dengan bahasa lain yang sudah banyak dikenal seperti Java, C#, Javascript, Swift, dan Kotlin."
+      },
+      {
+        "paragraf": "Salah satu rancangan utama dari Dart adalah supaya bahasa ini familiar bagi developer Javascript dan Java/C#."
+      },
+      {
+        "paragraf": "Artinya,  yang telah familiar dengan kedua bahasa tersebut dapat memulai belajar bahasa Dart dengan lebih mudah."
+      },
+      {
+        "paragraf": "Dart sebagai bahasa memiliki beberapa karakteristik berikut:"
+      },
+      {
+        "paragraf": "• Statically typed"
+      },
+      {
+        "paragraf": "• Type inference"
+      },
+      {
+        "paragraf": "• String expressions"
+      },
+      {
+        "paragraf": "• Multi-paradigm: OOP & Functional."
+      }
+    ]
+  },
+  {
+    "id": "materi-3",
+    "nama_materi": "Memulai Pemrograman dengan Dart",
+    "image_url": null,
+    "materi": [
+      {
+        "paragraf": "Dart merupakan bahasa modern dan berfitur lengkap. Dart juga memiliki banyak kemiripan dengan bahasa lain yang sudah banyak dikenal seperti Java, C#, Javascript, Swift, dan Kotlin."
+      },
+      {
+        "paragraf": "Salah satu rancangan utama dari Dart adalah supaya bahasa ini familiar bagi developer Javascript dan Java/C#."
+      },
+      {
+        "paragraf": "Artinya,  yang telah familiar dengan kedua bahasa tersebut dapat memulai belajar bahasa Dart dengan lebih mudah."
+      },
+      {
+        "paragraf": "Dart sebagai bahasa memiliki beberapa karakteristik berikut:"
+      },
+      {
+        "paragraf": "• Statically typed"
+      },
+      {
+        "paragraf": "• Type inference"
+      },
+      {
+        "paragraf": "• String expressions"
+      },
+      {
+        "paragraf": "• Multi-paradigm: OOP & Functional."
+      }
+    ]
+  },
+  {
+    "id": "materi-4",
+    "nama_materi": "Comments",
+    "image_url": "assets/images/dart_comments.png",
+    "materi": [
+      {
+        "paragraf": "Comments akan membuat program menjadi lebih mudah dibaca."
+      },
+      {
+        "paragraf": "Sebuah komentar akan dilewatkan ketika proses kompilasi, sehingga tidak akan memengaruhi alur program yang kita tulis."
+      },
+      {
+        "paragraf": "Terdapat dua jenis komentar yang bisa digunakan pada Dart."
+      },
+      {
+        "paragraf": "• Single-line comments(//) - komentar satu baris yang diawali dengan tanda \"//\" dan berakhir pada akhir baris tersebut."
+      },
+      {
+        "paragraf": "• Multi-line comments(/**/) - menuliskan beberapa baris komentar. Komentar ini dimulai dari tanda /* dan diakhiri dengan */."
+      }
+    ]
+  },
+  {
+    "id": "materi-5",
+    "nama_materi": "Variables",
+    "image_url": null,
+    "materi": [
+      {
+        "paragraf": "Comments akan membuat program menjadi lebih mudah dibaca."
+      },
+      {
+        "paragraf": "Sebuah komentar akan dilewatkan ketika proses kompilasi, sehingga tidak akan memengaruhi alur program yang kita tulis."
+      },
+      {
+        "paragraf": "Terdapat dua jenis komentar yang bisa digunakan pada Dart."
+      },
+      {
+        "paragraf": "• Single-line comments(//) - komentar satu baris yang diawali dengan tanda \"//\" dan berakhir pada akhir baris tersebut."
+      },
+      {
+        "paragraf": "• Multi-line comments(/**/) - menuliskan beberapa baris komentar. Komentar ini dimulai dari tanda /* dan diakhiri dengan */."
+      }
+    ]
+  }
+]

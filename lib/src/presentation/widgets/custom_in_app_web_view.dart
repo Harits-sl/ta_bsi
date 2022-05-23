@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class CustomInAppWebView extends StatefulWidget {
@@ -71,10 +72,14 @@ class _CustomInAppWebViewState extends State<CustomInAppWebView> {
       },
       onExitFullscreen: (InAppWebViewController controller) {
         SystemChrome.setPreferredOrientations([
-        // tampilan portrait
+          // tampilan portrait
           DeviceOrientation.portraitUp,
         ]);
       },
     );
+
+    // return Html(data: """
+    //   <iframe src="https://www.youtube.com/embed/${widget.idYoutube}?&autoplay=1&fs=1"></iframe>
+    // """);
   }
 }

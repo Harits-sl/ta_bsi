@@ -3,9 +3,9 @@ import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class HeaderBackAndTitle extends StatelessWidget {
-  const HeaderBackAndTitle({Key? key, required this.title}) : super(key: key);
+  const HeaderBackAndTitle({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,15 @@ class HeaderBackAndTitle extends StatelessWidget {
             onTap: () => onTap(),
             child: Image.asset('assets/images/ic_back.png', width: 24),
           ),
-          Text(
-            title,
-            style: blackTextStyle.copyWith(
-              fontSize: 14,
-              fontWeight: medium,
-            ),
-          ),
+          title == null
+              ? SizedBox()
+              : Text(
+                  title!,
+                  style: blackTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
+                ),
           const SizedBox(width: 24), // hanya untuk spacing
         ],
       ),

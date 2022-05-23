@@ -1,9 +1,12 @@
 import 'dart:math' as math;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:ta_bsi/src/data/dataSources/local/json/module_service.dart';
 import 'package:ta_bsi/src/data/models/module_model.dart';
+import 'package:ta_bsi/src/presentation/cubit/module/module_cubit.dart';
+import 'package:ta_bsi/src/presentation/pages/test_listview.dart';
 import 'package:ta_bsi/src/presentation/widgets/header_back_and_title.dart';
 import 'package:ta_bsi/src/utils/helper/string_helper.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
@@ -17,81 +20,22 @@ class ModulePage extends StatefulWidget {
 }
 
 class _ModulePageState extends State<ModulePage> {
-  bool _isExpanded = false;
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ModuleCubit>().fetchListModule();
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> listDummyModule = [
-      {
-        'id': 'modul-1',
-        'level': 'Level 1',
-        'modul': 'Pengenalan Flutter',
-        'materi_kelas': [
-          {
-            'id': 'materi-1',
-            'nama_materi': 'Apa itu Flutter',
-            'durasi': 3,
-          },
-          {
-            'id': 'materi-2',
-            'nama_materi': 'Menjalankan Program Flutter',
-            'durasi': 3,
-          }
-        ],
-      },
-      {
-        'id': 'modul-2',
-        'level': 'Level 2',
-        'modul': 'Pengenalan Widget',
-        'materi_kelas': [
-          {
-            'id': 'materi-3',
-            'nama_materi': 'Apa itu Widget',
-            'durasi': 3,
-          },
-          {
-            'id': 'materi-4',
-            'nama_materi': 'Stateless dan Statefull',
-            'durasi': 3,
-          },
-          {
-            'id': 'materi-5',
-            'nama_materi': 'Scaffold',
-            'durasi': 3,
-          },
-          {
-            'id': 'materi-6',
-            'nama_materi': 'Column dan Row',
-            'durasi': 3,
-          },
-        ],
-      },
-      {
-        'id': 'modul-3',
-        'level': 'Level 3',
-        'modul': 'Exercise',
-        'materi_kelas': [
-          {
-            'id': 'quiz-1',
-            'nama_materi': 'Quiz',
-            'durasi': 3,
-          },
-          {
-            'id': 'submission-1',
-            'nama_materi': 'Submission',
-            'durasi': 3,
-          },
-        ],
-      },
-    ];
-
     void onTap(String id) {
       String parts = StringHelper.splitId(id);
       String path;
 
       switch (parts) {
         case 'materi':
-          path = '/course';
+          path = '/detail-module';
           break;
         case 'quiz':
           path = '/quiz';
@@ -100,7 +44,7 @@ class _ModulePageState extends State<ModulePage> {
           path = '/submission';
           break;
         default:
-          path = '/course';
+          path = '/detail-module';
       }
 
       Go.routeWithPath(
@@ -110,6 +54,8 @@ class _ModulePageState extends State<ModulePage> {
           'id': id,
         },
       );
+
+      // Go.to(context, TestListview());
     }
 
     Widget module() {
@@ -166,53 +112,60 @@ class _ModulePageState extends State<ModulePage> {
             iconColor: blackColor,
             expandIcon: Icons.chevron_right_rounded,
           ),
-          child: Column(
-            children: listDummyModule.map((item) {
-              return Container(
-                padding: EdgeInsets.only(
-                  top: 12,
-                  bottom: 12,
-                  left: defaultMargin,
-                  right: defaultMargin,
-                ),
-                margin: const EdgeInsets.only(
-                  bottom: 12,
-                ),
-                color: whiteColor,
-                child: ExpandableNotifier(
-                  initialExpanded: true,
-                  child: ExpandablePanel(
-                    header: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item['level'],
-                          style: darkGrayTextStyle.copyWith(
-                            fontSize: 11,
-                            fontWeight: light,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          item['modul'],
-                          style: blackTextStyle.copyWith(
-                            fontSize: 14,
-                            fontWeight: semiBold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    collapsed: const SizedBox(), //  kosong
-                    expanded: Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 12, // dikurang dari padding container
+          child: BlocBuilder<ModuleCubit, ModuleState>(
+            builder: (context, state) {
+              if (state is ModuleSuccess) {
+                return Column(
+                  children: state.module.map((item) {
+                    return Container(
+                      padding: EdgeInsets.only(
+                        top: 12,
+                        bottom: 12,
+                        left: defaultMargin,
+                        right: defaultMargin,
                       ),
-                      child: itemModule(item['materi_kelas']),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
+                      margin: const EdgeInsets.only(
+                        bottom: 12,
+                      ),
+                      color: whiteColor,
+                      child: ExpandableNotifier(
+                        initialExpanded: true,
+                        child: ExpandablePanel(
+                          header: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.level,
+                                style: darkGrayTextStyle.copyWith(
+                                  fontSize: 11,
+                                  fontWeight: light,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                item.modul,
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: semiBold,
+                                ),
+                              ),
+                            ],
+                          ),
+                          collapsed: const SizedBox(), //  kosong
+                          expanded: Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 12, // dikurang dari padding container
+                            ),
+                            child: itemModule(item.materiKelas),
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                );
+              }
+              return SizedBox();
+            },
           ),
         );
       }
