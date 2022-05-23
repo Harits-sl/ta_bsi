@@ -15,6 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
+      // adsds
       print('authCubit signin $user');
       emit(AuthSuccess(user));
     } catch (e) {
