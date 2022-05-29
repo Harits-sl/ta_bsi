@@ -86,13 +86,9 @@ class DetailModuleCubit extends Cubit<DetailModuleState> {
 
   void fetchListModule(String idModule) async {
     try {
-      print('module awal $_module');
-
       emit(DetailModuleLoading());
 
       module = setModule(await DetailModuleService.getDetailModuleJson());
-
-      print('module akhir $_module');
 
       findIndexIdFromListMateri(idModule);
 
