@@ -26,7 +26,7 @@ class QuizPage extends StatelessWidget {
       return SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Text('quiz'),
           ],
         ),

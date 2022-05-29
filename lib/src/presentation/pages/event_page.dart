@@ -91,7 +91,7 @@ class _EventPageState extends State<EventPage> {
               }).toList(),
             );
           }
-          return SizedBox();
+          return const SizedBox();
         },
       );
     }

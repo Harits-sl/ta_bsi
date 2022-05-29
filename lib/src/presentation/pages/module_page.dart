@@ -2,12 +2,10 @@ import 'dart:math' as math;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.dart';
 
-import 'package:ta_bsi/src/data/dataSources/local/json/module_service.dart';
-import 'package:ta_bsi/src/data/models/module_model.dart';
 import 'package:ta_bsi/src/presentation/cubit/module/module_cubit.dart';
-import 'package:ta_bsi/src/presentation/pages/test_listview.dart';
-import 'package:ta_bsi/src/presentation/widgets/header_back_and_title.dart';
+import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/utils/helper/string_helper.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
@@ -20,19 +18,26 @@ class ModulePage extends StatefulWidget {
 }
 
 class _ModulePageState extends State<ModulePage> {
+  /// variable menampung id materi
+  late List<String?> listIdMateri;
+
   @override
   void initState() {
     super.initState();
+
+    listIdMateri = [];
 
     context.read<ModuleCubit>().fetchListModule();
   }
 
   @override
   Widget build(BuildContext context) {
-    void onTap(String id) {
+    void onTap(String id, List listMateri) {
+      // menampung string dari nilai kembalian splitId
       String parts = StringHelper.splitId(id);
-      String path;
 
+      // variabel untuk path
+      String path;
       switch (parts) {
         case 'materi':
           path = '/detail-module';
@@ -47,6 +52,12 @@ class _ModulePageState extends State<ModulePage> {
           path = '/detail-module';
       }
 
+      for (var materi in listMateri) {
+        listIdMateri.add(materi['id']);
+      }
+
+      context.read<DetailModuleCubit>().setListIdMateri(listIdMateri);
+
       Go.routeWithPath(
         context: context,
         path: path,
@@ -58,6 +69,10 @@ class _ModulePageState extends State<ModulePage> {
       // Go.to(context, TestListview());
     }
 
+    void onTapAppBar() {
+      Go.back(context);
+    }
+
     Widget module() {
       Widget itemModule(List materiKelas) {
         return ListView.builder(
@@ -65,8 +80,9 @@ class _ModulePageState extends State<ModulePage> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
+            listIdMateri.add(materiKelas[index]['id']);
             return GestureDetector(
-              onTap: () => onTap(materiKelas[index]['id']),
+              onTap: () => onTap(materiKelas[index]['id'], materiKelas),
               child: Container(
                 margin: const EdgeInsets.only(top: 15),
                 padding: const EdgeInsets.symmetric(
@@ -164,7 +180,7 @@ class _ModulePageState extends State<ModulePage> {
                   }).toList(),
                 );
               }
-              return SizedBox();
+              return const SizedBox();
             },
           ),
         );
@@ -182,7 +198,7 @@ class _ModulePageState extends State<ModulePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HeaderBackAndTitle(title: 'Daftar Modul'),
+              CustomAppBar(title: 'Daftar Modul', onTap: onTapAppBar),
               module(),
             ],
           ),

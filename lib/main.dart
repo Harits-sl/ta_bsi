@@ -13,7 +13,6 @@ import 'package:ta_bsi/src/presentation/cubit/youtube/youtube_cubit.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_module_page.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_article_page.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_event_page.dart';
-import 'package:ta_bsi/src/presentation/pages/detail_module_page_test.dart';
 import 'package:ta_bsi/src/presentation/pages/module_page.dart';
 import 'package:ta_bsi/src/presentation/pages/main_page.dart';
 import 'package:ta_bsi/src/presentation/pages/quiz_page.dart';
@@ -54,9 +53,6 @@ class MyApp extends StatelessWidget {
           create: (context) => DetailModuleCubit(),
         ),
         BlocProvider(
-          create: (context) => IndexDetailModuleCubit(),
-        ),
-        BlocProvider(
           create: (context) => EventCubit(),
         ),
         BlocProvider(
@@ -78,8 +74,6 @@ class MyApp extends StatelessWidget {
           '/module': (context) => const ModulePage(),
           '/detail-module': (context) =>
               DetailModulePage(ModalRoute.of(context)?.settings.arguments),
-          '/detail-module-test': (context) =>
-              DetailModulePageTest(ModalRoute.of(context)?.settings.arguments),
           '/quiz': (context) =>
               QuizPage(ModalRoute.of(context)?.settings.arguments),
           '/submission': (context) =>

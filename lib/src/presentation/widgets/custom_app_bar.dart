@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+
 import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
-class HeaderBackAndTitle extends StatelessWidget {
-  const HeaderBackAndTitle({Key? key, this.title}) : super(key: key);
+class CustomAppBar extends StatelessWidget {
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    required this.onTap,
+  }) : super(key: key);
 
-  final String? title;
+  final String title;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    void onTap() {
-      Go.back(context);
-    }
-
     return Container(
       margin: EdgeInsets.only(
         left: defaultMargin,
@@ -23,18 +25,16 @@ class HeaderBackAndTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () => onTap(),
+            onTap: onTap,
             child: Image.asset('assets/images/ic_back.png', width: 24),
           ),
-          title == null
-              ? SizedBox()
-              : Text(
-                  title!,
-                  style: blackTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: medium,
-                  ),
-                ),
+          Text(
+            title,
+            style: blackTextStyle.copyWith(
+              fontSize: 14,
+              fontWeight: medium,
+            ),
+          ),
           const SizedBox(width: 24), // hanya untuk spacing
         ],
       ),

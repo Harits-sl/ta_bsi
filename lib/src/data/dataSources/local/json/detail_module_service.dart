@@ -8,7 +8,6 @@ class DetailModuleService {
     final String response =
         await rootBundle.loadString('assets/json/list_detail_module_dart.json');
 
-    print(response);
     List data = await json.decode(response);
 
     final List<DetailModuleModel> listModule =

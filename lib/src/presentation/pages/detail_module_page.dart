@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
-import 'package:ta_bsi/src/presentation/widgets/header_back_and_title.dart';
+import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
+import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class DetailModulePage extends StatefulWidget {
@@ -18,7 +19,6 @@ class DetailModulePage extends StatefulWidget {
 class _DetailModulePageState extends State<DetailModulePage> {
   late int _index;
   late ScrollController _scrollController;
-
   @override
   void initState() {
     super.initState();
@@ -29,10 +29,22 @@ class _DetailModulePageState extends State<DetailModulePage> {
     context.read<DetailModuleCubit>().fetchListModule(widget.arguments['id']);
   }
 
+  // @override
+  // void dispose() {
+  //   _detailModuleCubit.close();
+  //   super.dispose();
+  // }
+
   /// fungsi untuk button continue
   void onPressedButtonContinue(int endCourse) {
     /// jika [_index] sama dengan banyaknya paragraf
     if (_index == endCourse) {
+      context.read<DetailModuleCubit>().incrementIndexListIdMateri();
+      context.read<DetailModuleCubit>().fetchNewListModule();
+      setState(() {
+        _index = 0;
+      });
+
       return;
     }
 
@@ -77,6 +89,12 @@ class _DetailModulePageState extends State<DetailModulePage> {
 
   @override
   Widget build(BuildContext context) {
+    void onTapAppBar() {
+      // context.read<DetailModuleCubit>().clearState();
+
+      Go.back(context);
+    }
+
     /// filter atau mencari materi yang cocok dari argument id dengan
     /// listDummyCourse
     // DetailModuleModel findDetailModule(List listDetailModule) {
@@ -88,7 +106,7 @@ class _DetailModulePageState extends State<DetailModulePage> {
     // }
 
     Widget appBar(String title) {
-      return HeaderBackAndTitle(title: title);
+      return CustomAppBar(title: title, onTap: onTapAppBar);
     }
 
     Widget course(List listMateri) {
@@ -107,36 +125,23 @@ class _DetailModulePageState extends State<DetailModulePage> {
           itemCount: listMateri.length,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
-            // print('luar if else terpanggil');
-            // if (_index == index) {
-            //   print('_index dan index sama terpanggil');
-            // } else {
-            //   WidgetsBinding.instance!.addPostFrameCallback((_) => {
-            //         print('widget binding terpanggil'),
-            //         {
-            //           if (_scrollController.hasClients)
-            //             {
-            //               print(_scrollController.hasClients),
-            //               _scrollController.jumpTo(
-            //                   _scrollController.position.maxScrollExtent)
-            //             }
-            //         },
-            //       });
-            // }
             return _index >= index
                 ? Html(
                     data: listMateri[index],
                     shrinkWrap: true,
                     style: {
                       'div': Style(
-                        padding: EdgeInsets.all(0),
-                        margin: EdgeInsets.all(0),
-                        // lineHeight: LineHeight(0),
-                        backgroundColor: Colors.red,
+                        padding: const EdgeInsets.all(0),
+                        margin: const EdgeInsets.all(0),
                       ),
                       'p': Style(
-                        padding: EdgeInsets.all(0),
-                        margin: EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0),
+                        margin: const EdgeInsets.all(0),
+                        fontWeight: regular,
+                        fontSize: const FontSize(16),
+                        lineHeight: LineHeight.percent(
+                          135,
+                        ),
                       ),
                     },
                   )
@@ -157,18 +162,32 @@ class _DetailModulePageState extends State<DetailModulePage> {
             left: defaultMargin,
             right: defaultMargin,
           ),
-          child: CustomButton(
-            title: 'Continue',
-            backgroundColor: primaryColor,
-            borderRadius: 50,
-            onPressed: () {
-              onPressedButtonContinue(endCourse);
-            },
-            textStyle: whiteTextStyle.copyWith(
-              fontSize: 14,
-              fontWeight: semiBold,
-            ),
-          ),
+          child: _index != endCourse
+              ? CustomButton(
+                  title: 'Tap to continue',
+                  backgroundColor: Colors.transparent,
+                  isNotSplash: true,
+                  borderRadius: 50,
+                  onPressed: () {
+                    onPressedButtonContinue(endCourse);
+                  },
+                  textStyle: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: semiBold,
+                  ),
+                )
+              : CustomButton(
+                  title: 'Continue',
+                  backgroundColor: primaryColor,
+                  borderRadius: 50,
+                  onPressed: () {
+                    onPressedButtonContinue(endCourse);
+                  },
+                  textStyle: whiteTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: semiBold,
+                  ),
+                ),
         ),
       );
     }
@@ -177,7 +196,10 @@ class _DetailModulePageState extends State<DetailModulePage> {
       return SafeArea(
         child: BlocBuilder<DetailModuleCubit, DetailModuleState>(
           builder: (context, state) {
-            print(state);
+            print('statessss $state');
+            if (state is DetailModuleInitial) {
+              return const Center(child: CircularProgressIndicator());
+            }
             if (state is DetailModuleLoading) {
               return const Center(child: CircularProgressIndicator());
             }

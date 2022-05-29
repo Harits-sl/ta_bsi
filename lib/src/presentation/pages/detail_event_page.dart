@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
-import 'package:ta_bsi/src/presentation/widgets/header_back_and_title.dart';
+import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
+import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -164,6 +165,10 @@ Full Stack Web Developer: harisenin.link/Webdev6
       if (!await launch(url)) throw 'Could not launch $url';
     }
 
+    void onTapAppBar() {
+      Go.back(context);
+    }
+
     Widget eventImage() {
       return Container(
         margin: EdgeInsets.only(
@@ -215,7 +220,7 @@ Full Stack Web Developer: harisenin.link/Webdev6
           children: [
             ListView(
               children: [
-                const HeaderBackAndTitle(title: 'Detail Event'),
+                CustomAppBar(title: 'Event', onTap: onTapAppBar),
                 eventImage(),
                 description(),
               ],

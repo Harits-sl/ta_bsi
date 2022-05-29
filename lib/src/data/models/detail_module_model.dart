@@ -22,6 +22,15 @@ class DetailModuleModel extends Equatable {
     );
   }
 
+  clear() {
+    return const DetailModuleModel(
+      id: '',
+      namaMateri: '',
+      imageUrl: '',
+      materi: '',
+    );
+  }
+
   @override
   List<Object> get props => [id, namaMateri, imageUrl, materi];
 }

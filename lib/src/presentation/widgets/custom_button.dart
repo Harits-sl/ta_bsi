@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({
+  const CustomButton({
     Key? key,
     required this.title,
     required this.onPressed,
     this.textStyle,
     this.backgroundColor,
     this.borderRadius = 0.0,
+    this.isNotSplash = false,
     this.iconUrl,
   }) : super(key: key);
 
   final String title;
   final TextStyle? textStyle;
   final Color? backgroundColor;
-  double borderRadius;
+  final double borderRadius;
   final String? iconUrl;
+  final bool? isNotSplash;
   final Function()? onPressed;
 
   @override
@@ -25,6 +27,7 @@ class CustomButton extends StatelessWidget {
       height: 45,
       child: TextButton(
         style: TextButton.styleFrom(
+          splashFactory: !isNotSplash! ? null : NoSplash.splashFactory,
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
