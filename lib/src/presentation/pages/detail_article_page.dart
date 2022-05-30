@@ -14,13 +14,6 @@ class DetailArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ArticleModel _article = article as ArticleModel;
 
-    /// filter atau mencari materi yang cocok dari argument id dengan
-    /// listDummyCourse
-    // Map<String, dynamic> _article = listDummyDetailArticle
-    //     .where((item) => item['id'] == article.id)
-    //     .toList()
-    //     .first;
-
     void onPressed(String url) async {
       if (!await launch(url)) throw 'Could not launch $url';
     }

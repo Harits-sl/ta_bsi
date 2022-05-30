@@ -8,26 +8,27 @@ part 'article_state.dart';
 class ArticleCubit extends Cubit<ArticleState> {
   ArticleCubit() : super(ArticleInitial());
 
+  /// variabel list article
+  List<ArticleModel> article = [];
+
+  /// fungsi setArticle untuk mengisi variabel article
+  void setArticle(List<ArticleModel> newArticle) {
+    article = newArticle;
+  }
+
   void fetchListArticle() async {
     try {
       emit(ArticleLoading());
 
-      List<ArticleModel> article = await ArticleService.getArticleJson();
+      /// jika [article] masih kosong paggil fungsi setArticle dengan
+      /// paramater ArticleService.fetchArticle()
+      if (article.isEmpty) {
+        setArticle(await ArticleService.fetchArticle());
+      }
+
       emit(ArticleSuccess(article));
     } catch (e) {
       emit(ArticleFailed(e.toString()));
     }
   }
-
-  // void fetchDetailArticle(String) async {
-  //   try {
-  //     emit(ArticleLoading());
-
-  //     List<ArticleModel> article =
-  //         await ArticleService.getDetailArticleJson('article-1');
-  //     emit(ArticleSuccess(article));
-  //   } catch (e) {
-  //     emit(ArticleFailed(e.toString()));
-  //   }
-  // }
 }

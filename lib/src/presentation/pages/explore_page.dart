@@ -6,6 +6,7 @@ import 'package:ta_bsi/src/presentation/cubit/article/article_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/youtube/youtube_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/card_article.dart';
 import 'package:ta_bsi/src/presentation/widgets/card_youtube.dart';
+import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class ExplorePage extends StatefulWidget {
@@ -25,6 +26,22 @@ class _ExplorePageState extends State<ExplorePage> {
 
   @override
   Widget build(BuildContext context) {
+    void onTapForYoutube(YoutubeModel youtube) {
+      Go.routeWithPath(
+        context: context,
+        path: '/youtube',
+        arguments: youtube,
+      );
+    }
+
+    void onTapForArticle(ArticleModel article) {
+      Go.routeWithPath(
+        context: context,
+        path: '/detail-article',
+        arguments: article,
+      );
+    }
+
     Widget titleAndSeeAll(String title) {
       return Container(
         margin: EdgeInsets.only(
@@ -70,8 +87,13 @@ class _ExplorePageState extends State<ExplorePage> {
                   left: _index == 1 ? defaultMargin : 16,
                   right: _index == datas.length ? defaultMargin : 0,
                 ),
-                child: CardYoutube(
-                  youtube: data,
+                child: GestureDetector(
+                  onTap: () {
+                    onTapForYoutube(data);
+                  },
+                  child: CardYoutube(
+                    youtube: data,
+                  ),
                 ),
               );
             }).toList(),
@@ -102,8 +124,13 @@ class _ExplorePageState extends State<ExplorePage> {
                 margin: const EdgeInsets.only(
                   bottom: 16,
                 ),
-                child: CardArticle(
-                  article: data,
+                child: GestureDetector(
+                  onTap: () {
+                    onTapForArticle(data);
+                  },
+                  child: CardArticle(
+                    article: data,
+                  ),
                 ),
               );
             }).toList(),
@@ -126,7 +153,6 @@ class _ExplorePageState extends State<ExplorePage> {
           builder: (context, youtubeState) {
             return BlocBuilder<ArticleCubit, ArticleState>(
               builder: (context, articleState) {
-
                 if (youtubeState is YoutubeLoading &&
                     articleState is ArticleLoading) {
                   return const Center(child: CircularProgressIndicator());
