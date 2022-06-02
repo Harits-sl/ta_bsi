@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_bsi/src/data/models/course_model.dart';
+import 'package:ta_bsi/src/presentation/cubit/course/course_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/card_course.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CourseCubit>().fetchListCourse();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +37,7 @@ class HomePage extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              'assets/images/img_avatar.jpg',
+              'assets/images/img_avatar.png',
               width: 35,
               height: 35,
             ),
@@ -40,7 +55,7 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   'mau belajar apa hari ini?',
-                  style: darkGrayTextStyle.copyWith(
+                  style: darkGreyTextStyle.copyWith(
                     fontSize: 12,
                     fontWeight: regular,
                   ),
@@ -52,7 +67,8 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    Widget course() {
+    Widget course(List<CourseModel> listCourse) {
+      int index = 0; // untuk menentukan margin
       return Container(
         margin: EdgeInsets.all(defaultMargin),
         child: Column(
@@ -65,17 +81,20 @@ class HomePage extends StatelessWidget {
                 fontWeight: medium,
               ),
             ),
-            GestureDetector(
-              onTap: onTap,
-              child: CardCourse(),
-            ),
-            GestureDetector(
-              onTap: onTap,
-              child: CardCourse(),
-            ),
-            GestureDetector(
-              onTap: onTap,
-              child: CardCourse(),
+            const SizedBox(height: 12),
+            Column(
+              children: listCourse.map((course) {
+                index++;
+                return GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      bottom: index == listCourse.length ? 0 : 10,
+                    ),
+                    child: CardCourse(course: course),
+                  ),
+                );
+              }).toList(),
             ),
           ],
         ),
@@ -83,11 +102,21 @@ class HomePage extends StatelessWidget {
     }
 
     Widget body() {
-      return ListView(
-        children: [
-          header(),
-          course(),
-        ],
+      return BlocBuilder<CourseCubit, CourseState>(
+        builder: (context, state) {
+          if (state is CourseLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is CourseSuccess) {
+            return ListView(
+              children: [
+                header(),
+                course(state.course),
+              ],
+            );
+          }
+          return const SizedBox();
+        },
       );
     }
 

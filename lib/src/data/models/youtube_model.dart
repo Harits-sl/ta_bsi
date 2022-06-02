@@ -13,12 +13,12 @@ class YoutubeModel extends Equatable {
     required this.title,
   });
 
-  factory YoutubeModel.fromJson(Map<String, dynamic> json) {
+  factory YoutubeModel.fromSnapshot(Map<dynamic, dynamic> snapshot) {
     return YoutubeModel(
-      id: json['id'] ?? '',
-      idYoutube: json['id_youtube'] ?? '',
-      imageUrl: json['image_url'] ?? '',
-      title: json['title'] ?? '',
+      id: snapshot['id'] ?? '',
+      idYoutube: snapshot['id_youtube'] ?? '',
+      imageUrl: snapshot['image_url'] ?? '',
+      title: snapshot['title'] ?? '',
     );
   }
 

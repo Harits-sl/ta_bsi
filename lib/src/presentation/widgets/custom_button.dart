@@ -4,19 +4,21 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
     required this.title,
-    required this.textStyle,
-    required this.backgroundColor,
-    required this.borderRadius,
     required this.onPressed,
+    this.textStyle,
+    this.backgroundColor,
+    this.borderRadius = 0.0,
+    this.isNotSplash = false,
     this.iconUrl,
   }) : super(key: key);
 
   final String title;
-  final TextStyle textStyle;
-  final Color backgroundColor;
+  final TextStyle? textStyle;
+  final Color? backgroundColor;
   final double borderRadius;
   final String? iconUrl;
-  final dynamic onPressed;
+  final bool? isNotSplash;
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class CustomButton extends StatelessWidget {
       height: 45,
       child: TextButton(
         style: TextButton.styleFrom(
+          splashFactory: !isNotSplash! ? null : NoSplash.splashFactory,
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),

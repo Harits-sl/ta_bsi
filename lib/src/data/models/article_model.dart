@@ -17,14 +17,14 @@ class ArticleModel extends Equatable {
     required this.link,
   });
 
-  factory ArticleModel.fromJson(Map<String, dynamic> json) {
+  factory ArticleModel.fromSnapshot(Map<dynamic, dynamic> snapshot) {
     return ArticleModel(
-      id: json['id'] ?? '',
-      imageUrl: json['image_url'] ?? '',
-      title: json['title'] ?? '',
-      publisher: json['publisher'] ?? '',
-      article: json['article'] ?? '',
-      link: json['link'] ?? '',
+      id: snapshot['id'] ?? '',
+      imageUrl: snapshot['image_url'] ?? '',
+      title: snapshot['title'] ?? '',
+      publisher: snapshot['publisher'] ?? '',
+      article: snapshot['article'] ?? '',
+      link: snapshot['link'] ?? '',
     );
   }
 

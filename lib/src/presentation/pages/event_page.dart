@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_bsi/src/data/models/event_model.dart';
 import 'package:ta_bsi/src/presentation/cubit/event/event_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/card_event.dart';
 import 'package:ta_bsi/theme.dart';
@@ -23,13 +24,11 @@ class _EventPageState extends State<EventPage> {
 
   @override
   Widget build(BuildContext context) {
-    void onTap(String id) {
+    void onTap(EventModel event) {
       Go.routeWithPath(
         context: context,
         path: '/detail-event',
-        arguments: {
-          'id': id,
-        },
+        arguments: event,
       );
     }
 
@@ -73,7 +72,7 @@ class _EventPageState extends State<EventPage> {
           }
           if (state is EventSuccess) {
             return Column(
-              children: state.event.map((event) {
+              children: state.event.map((e) {
                 _index++;
                 return Container(
                   margin: EdgeInsets.only(
@@ -82,16 +81,16 @@ class _EventPageState extends State<EventPage> {
                         _index == state.event.length ? (55 + defaultMargin) : 0,
                   ),
                   child: GestureDetector(
-                    onTap: () => onTap(event.id),
+                    onTap: () => onTap(e),
                     child: CardEvent(
-                      event: event,
+                      event: e,
                     ),
                   ),
                 );
               }).toList(),
             );
           }
-          return SizedBox();
+          return const SizedBox();
         },
       );
     }

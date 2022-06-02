@@ -8,11 +8,23 @@ part 'youtube_state.dart';
 class YoutubeCubit extends Cubit<YoutubeState> {
   YoutubeCubit() : super(YoutubeInitial());
 
+  /// variabel list youtube
+  List<YoutubeModel> youtube = [];
+
+  /// fungsi setYoutube untuk mengisi variabel youtube
+  void setYoutube(List<YoutubeModel> newYoutube) {
+    youtube = newYoutube;
+  }
+
   void fetchListYoutube() async {
     try {
       emit(YoutubeLoading());
 
-      List<YoutubeModel> youtube = await YoutubeService.getYoutubeJson();
+      /// jika [youtube] masih kosong paggil fungsi setYoutube dengan
+      /// paramater YoutubeService.fetchYoutube()
+      if (youtube.isEmpty) {
+        setYoutube(await YoutubeService.fetchYoutube());
+      }
 
       emit(YoutubeSuccess(youtube));
     } catch (e) {

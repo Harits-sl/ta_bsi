@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_bsi/src/presentation/cubit/auth/auth_cubit.dart';
@@ -121,14 +120,14 @@ class SignUpPage extends StatelessWidget {
           children: [
             Expanded(
               child: Divider(
-                color: grayColor,
+                color: greyColor,
               ),
             ),
             SizedBox(
               width: 32,
               child: Text(
                 'or',
-                style: grayTextStyle.copyWith(
+                style: greyTextStyle.copyWith(
                   fontSize: 11,
                   fontWeight: light,
                 ),
@@ -137,7 +136,7 @@ class SignUpPage extends StatelessWidget {
             ),
             Expanded(
               child: Divider(
-                color: grayColor,
+                color: greyColor,
               ),
             ),
           ],
@@ -167,7 +166,7 @@ class SignUpPage extends StatelessWidget {
           children: [
             Text(
               'have an account? ',
-              style: darkGrayTextStyle.copyWith(
+              style: darkGreyTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: light,
               ),

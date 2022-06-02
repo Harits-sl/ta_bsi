@@ -1,0 +1,112 @@
+[
+  {
+    "id": "modul-1",
+    "level": "Level 1",
+    "modul": "Pengenalan Dart",
+    "materi_kelas": [
+      {
+        "id": "materi-1",
+        "nama_materi": "Sejarah Dart",
+        "durasi": 3
+      },
+      {
+        "id": "materi-2",
+        "nama_materi": "Mengapa perlu belajar Dart",
+        "durasi": 3
+      },
+      {
+        "id": "materi-3",
+        "nama_materi": "Karakteristik Dart",
+        "durasi": 3
+      }
+    ]
+  },
+  {
+    "id": "modul-3",
+    "level": "Level 3",
+    "modul": "Dart Fundamental",
+    "materi_kelas": [
+      {
+        "id": "materi-4",
+        "nama_materi": "Comments",
+        "durasi": 3
+      },
+      {
+        "id": "materi-5",
+        "nama_materi": "Variables",
+        "durasi": 3
+      },
+      {
+        "id": "materi-6",
+        "nama_materi": "Numbers",
+        "durasi": 3
+      },
+      {
+        "id": "materi-7",
+        "nama_materi": "Strings",
+        "durasi": 3
+      },
+      {
+        "id": "materi-8",
+        "nama_materi": "Booleans",
+        "durasi": 3
+      },
+      {
+        "id": "materi-9",
+        "nama_materi": "operators",
+        "durasi": 3
+      }
+    ]
+  },
+  {
+    "id": "modul-4",
+    "level": "Level 4",
+    "modul": "Reusing Code",
+    "materi_kelas": [
+      {
+        "id": "materi-14",
+        "nama_materi": "Apa itu Function",
+        "durasi": 3
+      },
+      {
+        "id": "materi-15",
+        "nama_materi": "Menggunakan Function",
+        "durasi": 3
+      }
+    ]
+  },
+  {
+    "id": "modul-5",
+    "level": "Level 5",
+    "modul": "Make Decision",
+    "materi_kelas": [
+      {
+        "id": "materi-16",
+        "nama_materi": "If and Else Statement",
+        "durasi": 3
+      },
+      {
+        "id": "materi-15",
+        "nama_materi": "Switch Statement",
+        "durasi": 3
+      }
+    ]
+  },
+  {
+    "id": "modul-6",
+    "level": "Level 6",
+    "modul": "Exercise",
+    "materi_kelas": [
+      {
+        "id": "quiz-1",
+        "nama_materi": "Quiz",
+        "durasi": 3
+      },
+      {
+        "id": "submission-1",
+        "nama_materi": "Submission",
+        "durasi": 3
+      }
+    ]
+  }
+]

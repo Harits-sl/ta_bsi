@@ -71,10 +71,14 @@ class _CustomInAppWebViewState extends State<CustomInAppWebView> {
       },
       onExitFullscreen: (InAppWebViewController controller) {
         SystemChrome.setPreferredOrientations([
-        // tampilan portrait
+          // tampilan portrait
           DeviceOrientation.portraitUp,
         ]);
       },
     );
+
+    // return Html(data: """
+    //   <iframe src="https://www.youtube.com/embed/${widget.idYoutube}?&autoplay=1&fs=1"></iframe>
+    // """);
   }
 }

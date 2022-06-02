@@ -4,13 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_bsi/src/config/theme/app_theme.dart';
 import 'package:ta_bsi/src/presentation/cubit/article/article_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/auth/auth_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/course/course_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/event/event_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/module/module_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/page/page_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/youtube/youtube_cubit.dart';
-import 'package:ta_bsi/src/presentation/pages/course_page.dart';
+import 'package:ta_bsi/src/presentation/pages/detail_module_page.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_article_page.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_event_page.dart';
-import 'package:ta_bsi/src/presentation/pages/list_module_page.dart';
+import 'package:ta_bsi/src/presentation/pages/module_page.dart';
 import 'package:ta_bsi/src/presentation/pages/main_page.dart';
 import 'package:ta_bsi/src/presentation/pages/quiz_page.dart';
 import 'package:ta_bsi/src/presentation/pages/sign_in_page.dart';
@@ -41,6 +44,15 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthCubit(),
         ),
         BlocProvider(
+          create: (context) => CourseCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ModuleCubit(),
+        ),
+        BlocProvider(
+          create: (context) => DetailModuleCubit(),
+        ),
+        BlocProvider(
           create: (context) => EventCubit(),
         ),
         BlocProvider(
@@ -59,9 +71,9 @@ class MyApp extends StatelessWidget {
           '/sign-up': (context) => SignUpPage(),
           '/sign-in': (context) => SignInPage(),
           '/main': (context) => const MainPage(),
-          '/module': (context) => const ListModulePage(),
-          '/course': (context) =>
-              CoursePage(ModalRoute.of(context)?.settings.arguments),
+          '/module': (context) => const ModulePage(),
+          '/detail-module': (context) =>
+              DetailModulePage(ModalRoute.of(context)?.settings.arguments),
           '/quiz': (context) =>
               QuizPage(ModalRoute.of(context)?.settings.arguments),
           '/submission': (context) =>
