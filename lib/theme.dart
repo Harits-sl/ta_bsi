@@ -9,17 +9,23 @@ double defaultBorderRadius = 12.0;
 Color primaryColor = const Color(0xff2E3192);
 Color whiteColor = const Color(0xffFFFFFF);
 Color blackColor = const Color(0xff1A1A1A);
-Color grayColor = const Color(0xffDCDCDC);
-Color lightGrayColor = const Color(0xffE0E4EC);
-Color darkGrayColor = const Color(0xff9C9CA4);
+Color greyColor = const Color(0xffDCDCDC);
+Color greenColor = const Color(0xff3DBC4A);
+Color redColor = const Color(0xffE93C3C);
+Color lightGreyColor = const Color(0xffE0E4EC);
+Color lightGreenColor = const Color(0xffDBFFDF);
+Color lightRedColor = const Color(0xffFFDDDD);
+Color darkGreyColor = const Color(0xff9C9CA4);
 Color backgroundColor = const Color(0xffF5F6FF);
 
 // TextStyle
 TextStyle primaryTextStyle = GoogleFonts.poppins(color: primaryColor);
 TextStyle whiteTextStyle = GoogleFonts.poppins(color: whiteColor);
 TextStyle blackTextStyle = GoogleFonts.poppins(color: blackColor);
-TextStyle grayTextStyle = GoogleFonts.poppins(color: grayColor);
-TextStyle darkGrayTextStyle = GoogleFonts.poppins(color: darkGrayColor);
+TextStyle greyTextStyle = GoogleFonts.poppins(color: greyColor);
+TextStyle darkGreyTextStyle = GoogleFonts.poppins(color: darkGreyColor);
+TextStyle greenTextStyle = GoogleFonts.poppins(color: greenColor);
+TextStyle redTextStyle = GoogleFonts.poppins(color: redColor);
 
 // fontWeight
 FontWeight light = FontWeight.w300;

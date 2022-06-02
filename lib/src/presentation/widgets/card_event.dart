@@ -26,7 +26,7 @@ class CardEvent extends StatelessWidget {
             blurRadius: 1,
             spreadRadius: 1,
             offset: const Offset(0, 1),
-            color: grayColor,
+            color: greyColor,
           ),
         ],
       ),

@@ -23,7 +23,7 @@ class NavbarItem extends StatelessWidget {
         height: 55,
         width: MediaQuery.of(context).size.width / 4,
         child: InkWell(
-          splashColor: lightGrayColor,
+          splashColor: lightGreyColor,
           borderRadius: BorderRadius.circular(24),
           onTap: () {
             context.read<PageCubit>().setPage(index);

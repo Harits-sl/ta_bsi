@@ -116,7 +116,7 @@ class SignInPage extends StatelessWidget {
       return kDebugMode
           ? CustomButton(
               title: 'debug only',
-              backgroundColor: grayColor,
+              backgroundColor: greyColor,
               borderRadius: 50,
               onPressed: routeMainPage,
               textStyle: blackTextStyle.copyWith(
@@ -134,14 +134,14 @@ class SignInPage extends StatelessWidget {
           children: [
             Expanded(
               child: Divider(
-                color: grayColor,
+                color: greyColor,
               ),
             ),
             SizedBox(
               width: 32,
               child: Text(
                 'or',
-                style: grayTextStyle.copyWith(
+                style: greyTextStyle.copyWith(
                   fontSize: 11,
                   fontWeight: light,
                 ),
@@ -150,7 +150,7 @@ class SignInPage extends StatelessWidget {
             ),
             Expanded(
               child: Divider(
-                color: grayColor,
+                color: greyColor,
               ),
             ),
           ],
@@ -180,7 +180,7 @@ class SignInPage extends StatelessWidget {
           children: [
             Text(
               'don\'t have an account? ',
-              style: darkGrayTextStyle.copyWith(
+              style: darkGreyTextStyle.copyWith(
                 fontSize: 12,
                 fontWeight: light,
               ),

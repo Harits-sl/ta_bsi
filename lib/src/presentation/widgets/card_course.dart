@@ -24,7 +24,7 @@ class CardCourse extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           width: 0.5,
-          color: grayColor,
+          color: greyColor,
         ),
       ),
       child: Column(
@@ -45,7 +45,7 @@ class CardCourse extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             course.description,
-            style: darkGrayTextStyle.copyWith(
+            style: darkGreyTextStyle.copyWith(
               fontSize: 11,
               fontWeight: light,
             ),

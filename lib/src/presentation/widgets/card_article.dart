@@ -20,7 +20,7 @@ class CardArticle extends StatelessWidget {
         color: whiteColor,
         border: Border.all(
           width: 0.5,
-          color: grayColor,
+          color: greyColor,
         ),
         borderRadius: BorderRadius.circular(12),
       ),
@@ -46,7 +46,7 @@ class CardArticle extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     text: 'Published by ',
-                    style: darkGrayTextStyle.copyWith(
+                    style: darkGreyTextStyle.copyWith(
                       fontSize: 10,
                       fontWeight: light,
                     ),

@@ -139,8 +139,8 @@ class _DetailModulePageState extends State<DetailModulePage> {
                         margin: const EdgeInsets.all(0),
                         fontWeight: regular,
                         fontSize: const FontSize(16),
-                        lineHeight: LineHeight.percent(
-                          135,
+                        lineHeight: const LineHeight(
+                          1.6,
                         ),
                       ),
                     },

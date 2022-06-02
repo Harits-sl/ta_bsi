@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 2),
                 Text(
                   'mau belajar apa hari ini?',
-                  style: darkGrayTextStyle.copyWith(
+                  style: darkGreyTextStyle.copyWith(
                     fontSize: 12,
                     fontWeight: regular,
                   ),

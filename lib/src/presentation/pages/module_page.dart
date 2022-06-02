@@ -91,7 +91,7 @@ class _ModulePageState extends State<ModulePage> {
                 ),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: lightGrayColor,
+                  color: lightGreyColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(
@@ -107,7 +107,7 @@ class _ModulePageState extends State<ModulePage> {
                     const SizedBox(height: 2),
                     Text(
                       '${materiKelas[index]['durasi']} menit',
-                      style: darkGrayTextStyle.copyWith(
+                      style: darkGreyTextStyle.copyWith(
                         fontSize: 12,
                         fontWeight: light,
                       ),
@@ -152,7 +152,7 @@ class _ModulePageState extends State<ModulePage> {
                             children: [
                               Text(
                                 item.level,
-                                style: darkGrayTextStyle.copyWith(
+                                style: darkGreyTextStyle.copyWith(
                                   fontSize: 11,
                                   fontWeight: light,
                                 ),
