@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
 import 'package:ta_bsi/src/presentation/widgets/item_button_answer.dart';
+import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class QuizPage extends StatefulWidget {
@@ -32,6 +33,13 @@ class _QuizPageState extends State<QuizPage> {
   /// sudah dijawab atau belom
   late bool _isAnswered;
 
+  /// variabel boolean apakah kuis
+  /// sudah selesai atau belom
+  late bool _isQuizDone;
+
+  /// variabel banyaknya jawaban yang dijawab benar
+  late int _manyCorrectAnswer;
+
   // style untuk buttonContinue
   /// textStyle untuk teks button continue
   late TextStyle? textStyleButtonContinue;
@@ -57,7 +65,9 @@ class _QuizPageState extends State<QuizPage> {
 
     _answer = Answer.notAnswered;
     _isAnswered = false;
+    _isQuizDone = false;
     _indexForQuestion = 0;
+    _manyCorrectAnswer = 0;
 
     textStyleButtonContinue = darkGreyTextStyle;
     backgroundContainerButtonContinue = whiteColor;
@@ -100,6 +110,7 @@ class _QuizPageState extends State<QuizPage> {
         break;
       case Answer.correct:
         setState(() {
+          _manyCorrectAnswer++;
           textStyleButtonContinue = whiteTextStyle;
           backgroundContainerButtonContinue = lightGreenColor;
           backgroundButtonContinue = greenColor;
@@ -167,12 +178,17 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void onTapButtonContinue() {
-    /// jika [_indexForQuestion] sama dengan banyaknya pertanyaan atau
-    /// [_isAnswered] false / belom dijawab maka return kosong
-    /// perintah ini membuat button tidak bisa digunakan / disabled
-    if (_indexForQuestion == 1 || !_isAnswered) {
+    /// jika [_indexForQuestion] sama dengan banyaknya pertanyaan
+    if (_indexForQuestion == 4) {
+      setState(() {
+        _isQuizDone = true;
+      });
       return;
     }
+
+    /// [_isAnswered] false / belom dijawab maka return kosong
+    /// perintah ini membuat button tidak bisa digunakan / disabled
+    if (!_isAnswered) return;
 
     /// increment [_indexForQuestion], ubah value [_isAnswered] menjadi false
     ///  ubah value [_answer] menjadi Answer.notAnswered
@@ -184,6 +200,10 @@ class _QuizPageState extends State<QuizPage> {
       _answer = Answer.notAnswered;
     });
     changeState();
+  }
+
+  void onTapRouteToHome() {
+    Go.routeWithPathAndRemove(context: context, path: '/main');
   }
 
   @override
@@ -205,7 +225,49 @@ class _QuizPageState extends State<QuizPage> {
             'karena flutter adalah framework adsadsadjfnsefdasdsfsaf fdewqffef dasfsaffef qf32rf4g 3452345 dfewf r23r3r fwefewf',
       },
       {
-        'question': 'Apa itu dart?',
+        'question': 'Apa itu asd?',
+        'image_url': 'assets/images/dart_comments.png',
+        'answer': [
+          {
+            '1': 'Dart adalah framework',
+            '2': 'Dart adalah bahasa',
+            '3': 'Dart adalah program',
+            '4': 'semua salah',
+          },
+        ],
+        'correct_answer': '2',
+        'explanation': 'karena dart adalah framework adsadsadjfnsef',
+      },
+      {
+        'question': 'Apa itu dasd?',
+        'image_url': 'assets/images/dart_comments.png',
+        'answer': [
+          {
+            '1': 'Dart adalah framework',
+            '2': 'Dart adalah bahasa',
+            '3': 'Dart adalah program',
+            '4': 'semua salah',
+          },
+        ],
+        'correct_answer': '2',
+        'explanation': 'karena dart adalah framework adsadsadjfnsef',
+      },
+      {
+        'question': 'Apa itu dsadsd?',
+        'image_url': 'assets/images/dart_comments.png',
+        'answer': [
+          {
+            '1': 'Dart adalah framework',
+            '2': 'Dart adalah bahasa',
+            '3': 'Dart adalah program',
+            '4': 'semua salah',
+          },
+        ],
+        'correct_answer': '2',
+        'explanation': 'karena dart adalah framework adsadsadjfnsef',
+      },
+      {
+        'question': 'Apa itu wd?',
         'image_url': 'assets/images/dart_comments.png',
         'answer': [
           {
@@ -303,6 +365,41 @@ class _QuizPageState extends State<QuizPage> {
       );
     }
 
+    Widget finishQuiz() {
+      return Center(
+        child: Container(
+          constraints: const BoxConstraints(
+            maxHeight: 250,
+          ),
+          margin: EdgeInsets.all(defaultMargin),
+          padding: EdgeInsets.all(defaultMargin),
+          decoration: BoxDecoration(
+            color: whiteColor,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: darkGreyColor),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Kamu menjawab benar sebanyak $_manyCorrectAnswer soal',
+                style: blackTextStyle.copyWith(
+                  fontSize: 20,
+                  fontWeight: semiBold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 12),
+              CustomButton(
+                title: 'Kembali ke halaman utama',
+                onPressed: onTapRouteToHome,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     Widget buttonContinue() {
       return Align(
         alignment: Alignment.bottomCenter,
@@ -341,7 +438,7 @@ class _QuizPageState extends State<QuizPage> {
                     bottom: 16,
                   ),
                   child: CustomButton(
-                    title: 'Continue',
+                    title: _indexForQuestion == 4 ? 'Finish Quiz' : 'Continue',
                     onPressed: onTapButtonContinue,
                     backgroundColor: backgroundButtonContinue,
                     borderRadius: 12,
@@ -377,6 +474,7 @@ class _QuizPageState extends State<QuizPage> {
               ],
             ),
             buttonContinue(),
+            _isQuizDone ? finishQuiz() : Container(),
           ],
         ),
       );
