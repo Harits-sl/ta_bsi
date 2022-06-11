@@ -27,7 +27,7 @@ class _ModulePageState extends State<ModulePage> {
 
     listIdMateri = [];
 
-    context.read<ModuleCubit>().fetchListModule();
+    context.read<ModuleCubit>().fetchListModule('dart');
   }
 
   @override
@@ -44,9 +44,6 @@ class _ModulePageState extends State<ModulePage> {
           break;
         case 'quiz':
           path = '/quiz';
-          break;
-        case 'submission':
-          path = '/submission';
           break;
         default:
           path = '/detail-module';
