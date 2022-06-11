@@ -9,6 +9,7 @@ import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.d
 import 'package:ta_bsi/src/presentation/cubit/event/event_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/module/module_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/page/page_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/quiz/quiz_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/youtube/youtube_cubit.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_module_page.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_article_page.dart';
@@ -60,6 +61,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ArticleCubit(),
+        ),
+        BlocProvider(
+          create: (context) => QuizCubit(),
         ),
       ],
       child: MaterialApp(

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_bsi/src/data/models/quiz_model.dart';
+import 'package:ta_bsi/src/presentation/cubit/quiz/quiz_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
 import 'package:ta_bsi/src/presentation/widgets/item_button_answer.dart';
@@ -62,6 +65,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
+    context.read<QuizCubit>().fetchListQuiz('dart');
 
     _answer = Answer.notAnswered;
     _isAnswered = false;
@@ -208,79 +212,79 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> listDummyQuiz = [
-      {
-        'question': 'Apa itu flutter?',
-        'image_url': 'assets/images/dart_comments.png',
-        'answer': [
-          {
-            '1': 'flutter adalah framework',
-            '2': 'flutter adalah bahasa',
-            '3': 'flutter adalah program',
-            '4': 'semua salah',
-          },
-        ],
-        'correct_answer': '1',
-        'explanation':
-            'karena flutter adalah framework adsadsadjfnsefdasdsfsaf fdewqffef dasfsaffef qf32rf4g 3452345 dfewf r23r3r fwefewf',
-      },
-      {
-        'question': 'Apa itu asd?',
-        'image_url': 'assets/images/dart_comments.png',
-        'answer': [
-          {
-            '1': 'Dart adalah framework',
-            '2': 'Dart adalah bahasa',
-            '3': 'Dart adalah program',
-            '4': 'semua salah',
-          },
-        ],
-        'correct_answer': '2',
-        'explanation': 'karena dart adalah framework adsadsadjfnsef',
-      },
-      {
-        'question': 'Apa itu dasd?',
-        'image_url': 'assets/images/dart_comments.png',
-        'answer': [
-          {
-            '1': 'Dart adalah framework',
-            '2': 'Dart adalah bahasa',
-            '3': 'Dart adalah program',
-            '4': 'semua salah',
-          },
-        ],
-        'correct_answer': '2',
-        'explanation': 'karena dart adalah framework adsadsadjfnsef',
-      },
-      {
-        'question': 'Apa itu dsadsd?',
-        'image_url': 'assets/images/dart_comments.png',
-        'answer': [
-          {
-            '1': 'Dart adalah framework',
-            '2': 'Dart adalah bahasa',
-            '3': 'Dart adalah program',
-            '4': 'semua salah',
-          },
-        ],
-        'correct_answer': '2',
-        'explanation': 'karena dart adalah framework adsadsadjfnsef',
-      },
-      {
-        'question': 'Apa itu wd?',
-        'image_url': 'assets/images/dart_comments.png',
-        'answer': [
-          {
-            '1': 'Dart adalah framework',
-            '2': 'Dart adalah bahasa',
-            '3': 'Dart adalah program',
-            '4': 'semua salah',
-          },
-        ],
-        'correct_answer': '2',
-        'explanation': 'karena dart adalah framework adsadsadjfnsef',
-      },
-    ];
+    // List<Map<String, dynamic>> listDummyQuiz = [
+    //   {
+    //     'question': 'Apa itu flutter?',
+    //     'image_url': 'assets/images/dart_comments.png',
+    //     'answer': [
+    //       {
+    //         '1': 'flutter adalah framework',
+    //         '2': 'flutter adalah bahasa',
+    //         '3': 'flutter adalah program',
+    //         '4': 'semua salah',
+    //       },
+    //     ],
+    //     'correct_answer': '1',
+    //     'explanation':
+    //         'karena flutter adalah framework adsadsadjfnsefdasdsfsaf fdewqffef dasfsaffef qf32rf4g 3452345 dfewf r23r3r fwefewf',
+    //   },
+    //   {
+    //     'question': 'Apa itu asd?',
+    //     'image_url': 'assets/images/dart_comments.png',
+    //     'answer': [
+    //       {
+    //         '1': 'Dart adalah framework',
+    //         '2': 'Dart adalah bahasa',
+    //         '3': 'Dart adalah program',
+    //         '4': 'semua salah',
+    //       },
+    //     ],
+    //     'correct_answer': '2',
+    //     'explanation': 'karena dart adalah framework adsadsadjfnsef',
+    //   },
+    //   {
+    //     'question': 'Apa itu dasd?',
+    //     'image_url': 'assets/images/dart_comments.png',
+    //     'answer': [
+    //       {
+    //         '1': 'Dart adalah framework',
+    //         '2': 'Dart adalah bahasa',
+    //         '3': 'Dart adalah program',
+    //         '4': 'semua salah',
+    //       },
+    //     ],
+    //     'correct_answer': '2',
+    //     'explanation': 'karena dart adalah framework adsadsadjfnsef',
+    //   },
+    //   {
+    //     'question': 'Apa itu dsadsd?',
+    //     'image_url': 'assets/images/dart_comments.png',
+    //     'answer': [
+    //       {
+    //         '1': 'Dart adalah framework',
+    //         '2': 'Dart adalah bahasa',
+    //         '3': 'Dart adalah program',
+    //         '4': 'semua salah',
+    //       },
+    //     ],
+    //     'correct_answer': '2',
+    //     'explanation': 'karena dart adalah framework adsadsadjfnsef',
+    //   },
+    //   {
+    //     'question': 'Apa itu wd?',
+    //     'image_url': 'assets/images/dart_comments.png',
+    //     'answer': [
+    //       {
+    //         '1': 'Dart adalah framework',
+    //         '2': 'Dart adalah bahasa',
+    //         '3': 'Dart adalah program',
+    //         '4': 'semua salah',
+    //       },
+    //     ],
+    //     'correct_answer': '2',
+    //     'explanation': 'karena dart adalah framework adsadsadjfnsef',
+    //   },
+    // ];
 
     Widget appBar() {
       return CustomAppBar(onTap: () {});
@@ -312,7 +316,7 @@ class _QuizPageState extends State<QuizPage> {
       );
     }
 
-    Widget listButtonAnswer() {
+    Widget listButtonAnswer(List<QuizModel> quiz) {
       return ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -320,14 +324,12 @@ class _QuizPageState extends State<QuizPage> {
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           // variable dari key answer
-          String keyAnswer = listDummyQuiz[_indexForQuestion]['answer'][0]
-              .keys
-              .elementAt(index);
+          String keyAnswer =
+              quiz[_indexForQuestion].answer.keys.elementAt(index);
           return GestureDetector(
             onTap: () {
               onTapButtonAnswer(
-                correctAnswer: listDummyQuiz[_indexForQuestion]
-                    ['correct_answer'],
+                correctAnswer: quiz[_indexForQuestion].correctAnswer,
                 tapKeyAnswer: keyAnswer,
               );
             },
@@ -338,8 +340,7 @@ class _QuizPageState extends State<QuizPage> {
                     : 0,
               ),
               child: ItemButtonAnswer(
-                answer: listDummyQuiz[_indexForQuestion]['answer'][0]
-                    ['${index + 1}'],
+                answer: quiz[_indexForQuestion].answer[keyAnswer],
                 keyAnswer: keyAnswer,
               ),
             ),
@@ -348,7 +349,7 @@ class _QuizPageState extends State<QuizPage> {
       );
     }
 
-    Widget explanationAnswer() {
+    Widget explanationAnswer(List<QuizModel> quiz) {
       return Container(
         margin: EdgeInsets.only(
           left: defaultMargin,
@@ -356,7 +357,7 @@ class _QuizPageState extends State<QuizPage> {
           bottom: 45 + 20 + 16 + 12, // tinggi buttonContinue
         ),
         child: Text(
-          listDummyQuiz[_indexForQuestion]['explanation'],
+          quiz[_indexForQuestion].explanation,
           style: blackTextStyle.copyWith(
             fontWeight: regular,
             height: 1.8,
@@ -456,26 +457,33 @@ class _QuizPageState extends State<QuizPage> {
 
     Widget body() {
       return SafeArea(
-        child: Stack(
-          children: [
-            ListView(
-              children: [
-                appBar(),
-                titleQuestion(listDummyQuiz[_indexForQuestion]['question']),
-                imageQuestion(listDummyQuiz[_indexForQuestion]['image_url']),
+        child: BlocBuilder<QuizCubit, QuizState>(
+          builder: (context, state) {
+            if (state is QuizSuccess) {
+              return Stack(
+                children: [
+                  ListView(
+                    children: [
+                      appBar(),
+                      titleQuestion(state.quiz[_indexForQuestion].question),
+                      imageQuestion(state.quiz[_indexForQuestion].imageUrl),
 
-                /// jika [_answer] nilainya Answer.notAnswered
-                /// tampilkan listButtonAnswer
-                /// jika [_answer] nilainya Answer.correct / inCorrect
-                /// tampilkan descriptionAnswer
-                _answer == Answer.notAnswered
-                    ? listButtonAnswer()
-                    : explanationAnswer(),
-              ],
-            ),
-            buttonContinue(),
-            _isQuizDone ? finishQuiz() : Container(),
-          ],
+                      /// jika [_answer] nilainya Answer.notAnswered
+                      /// tampilkan listButtonAnswer
+                      /// jika [_answer] nilainya Answer.correct / inCorrect
+                      /// tampilkan descriptionAnswer
+                      _answer == Answer.notAnswered
+                          ? listButtonAnswer(state.quiz)
+                          : explanationAnswer(state.quiz),
+                    ],
+                  ),
+                  buttonContinue(),
+                  _isQuizDone ? finishQuiz() : Container(),
+                ],
+              );
+            }
+            return const SizedBox();
+          },
         ),
       );
     }
