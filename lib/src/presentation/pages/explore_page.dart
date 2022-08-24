@@ -60,7 +60,7 @@ class _ExplorePageState extends State<ExplorePage> {
               ),
             ),
             Text(
-              'see all',
+              '',
               style: primaryTextStyle.copyWith(
                 fontSize: 10,
                 fontWeight: semiBold,

@@ -156,6 +156,28 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
+  void showDialogFinishQuiz() {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          'Kamu menjawab benar sebanyak $_manyCorrectAnswer soal',
+          style: blackTextStyle.copyWith(
+            fontSize: 20,
+            fontWeight: semiBold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => onTapRouteToHome(),
+            child: const Text('Kembali ke halaman utama'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void onTapButtonAnswer({
     required String correctAnswer,
     required String tapKeyAnswer,
@@ -186,6 +208,7 @@ class _QuizPageState extends State<QuizPage> {
     if (_indexForQuestion == 4) {
       setState(() {
         _isQuizDone = true;
+        showDialogFinishQuiz();
       });
       return;
     }
@@ -239,6 +262,7 @@ class _QuizPageState extends State<QuizPage> {
           right: defaultMargin,
         ),
         child: Image.asset(imageUrl),
+        // child: Image.asset('assets/images/ic_flutter.png'),
       );
     }
 
@@ -276,6 +300,12 @@ class _QuizPageState extends State<QuizPage> {
     }
 
     Widget explanationAnswer(List<QuizModel> quiz) {
+      /// replace '/n' from firebase to '\n'
+      /// karena firebase tidak bisa mengenali escape string
+      /// maka diubah ke '/n'
+      String explanation =
+          quiz[_indexForQuestion].explanation.replaceAll('/n', '\n');
+
       return Container(
         margin: EdgeInsets.only(
           left: defaultMargin,
@@ -283,49 +313,50 @@ class _QuizPageState extends State<QuizPage> {
           bottom: 45 + 20 + 16 + 12, // tinggi buttonContinue
         ),
         child: Text(
-          quiz[_indexForQuestion].explanation,
+          explanation,
           style: blackTextStyle.copyWith(
             fontWeight: regular,
             height: 1.8,
           ),
+          textAlign: TextAlign.justify,
         ),
       );
     }
 
-    Widget finishQuiz() {
-      return Center(
-        child: Container(
-          constraints: const BoxConstraints(
-            maxHeight: 250,
-          ),
-          margin: EdgeInsets.all(defaultMargin),
-          padding: EdgeInsets.all(defaultMargin),
-          decoration: BoxDecoration(
-            color: whiteColor,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: darkGreyColor),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Kamu menjawab benar sebanyak $_manyCorrectAnswer soal',
-                style: blackTextStyle.copyWith(
-                  fontSize: 20,
-                  fontWeight: semiBold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 12),
-              CustomButton(
-                title: 'Kembali ke halaman utama',
-                onPressed: onTapRouteToHome,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
+    // void finishQuiz() {
+    // return Center(
+    //   child: Container(
+    //     constraints: const BoxConstraints(
+    //       maxHeight: 250,
+    //     ),
+    //     margin: EdgeInsets.all(defaultMargin),
+    //     padding: EdgeInsets.all(defaultMargin),
+    //     decoration: BoxDecoration(
+    //       color: whiteColor,
+    //       borderRadius: BorderRadius.circular(16),
+    //       border: Border.all(color: darkGreyColor),
+    //     ),
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Text(
+    //           'Kamu menjawab benar sebanyak $_manyCorrectAnswer soal',
+    //           style: blackTextStyle.copyWith(
+    //             fontSize: 20,
+    //             fontWeight: semiBold,
+    //           ),
+    //           textAlign: TextAlign.center,
+    //         ),
+    //         const SizedBox(height: 12),
+    //         CustomButton(
+    //           title: 'Kembali ke halaman utama',
+    //           onPressed: onTapRouteToHome,
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    // }
 
     Widget buttonContinue() {
       return Align(
@@ -404,7 +435,7 @@ class _QuizPageState extends State<QuizPage> {
                     ],
                   ),
                   buttonContinue(),
-                  _isQuizDone ? finishQuiz() : Container(),
+                  // _isQuizDone ? finishQuiz() : Container(),
                 ],
               );
             }

@@ -1,31 +1,41 @@
 [
   {
-    "id": "materi-1",
+    "id": "materi-flutter-1",
     "nama_materi": "Apa itu Flutter",
-    "materi": "Flutter adalah SDK (Software Development Kit) yang dikembangkan oleh Google untuk membuat aplikasi yang bagus dan bisa berjalan pada berbagai platform. Flutter 2 yang merupakan versi terbaru memberikan dukungan pada Anda untuk membangun aplikasi pada sistem operasi Android, iOS, Web, Windows, Linux, dan MacOS. Dengan ini, Anda cukup sekali coding atau dikenal dengan single codebase. Flutter juga sudah digunakan oleh banyak developer maupun organisasi di seluruh dunia, selain itu Flutter bersifat open source."
+    "materi": "<div><img src='asset:assets/images/module/flutter_ic_flutter.jpg' /></div> <div> <p>Flutter adalah salah satu produk ciptaan Google yang dapat digunakan oleh para developer dalam membuat aplikasi lintas platform hanya dengan satu basis code (codebase).</p> </div> <div> <p>Teknologi open source ini memungkinkan developer untuk menghasilkan aplikasi yang dapat dipakai di berbagai platform, baik mobile Android, iOS, web, maupun dekstop.</p> </div> <div> <p>Mengapa Flutter?</p> </div> <div> <p>Flutter berbeda dari kebanyakan SDK Cross-platform lainnya untuk membuat aplikasi mobile.</p> </div> <div> <p>Untuk menarik widget, Flutter bukan menggunakan WebView maupun widget OEM, melainkan mesin rendering berkinerja tinggi.</p> </div> <div> <p>Ada beberapa kelebihan dari Flutter, antara lain:</p> </div> <div> <p>1. Flutter memungkinkan kita untuk membuat aplikasi yang indah (beautiful) </p> </div> <div> <p>2. Flutter berjalan dengan sangat cepat (fast)</p> </div> <div> <p>Flutter sangat produktif (productive)</p> </div> <div> <p>Flutter bersifat terbuka (open source)</p> </div> "
   },
   {
-    "id": "materi-2",
+    "id": "materi-flutter-2",
     "nama_materi": "Menjalankan Program Flutter",
-    "materi": "Setelah mengetahui persiapan sebelum menjalankan project di Android dan di iOS, baik itu di emulator maupun device. Berikut cara untuk menjalankannya di beberapa IDE yang sudah dijelaskan sebelumnya."
+    "materi": "<div> <p>Untuk menjalankan Flutter buka https://dartpad.dev/</p> </div> <div><img src='asset:assets/images/module/flutter_jalanin_flutter.jpg' /></div> <div> <p>Pilih New Pad, lalu pilih Flutter</p> </div> <div><img src='asset:assets/images/module/flutter_jalanin_flutter1.jpg' /></div> <div> <p>Lalu tekan Samples, pilih Counter</p> </div> <div><img src='asset:assets/images/module/flutter_jalanin_flutter2.jpg' /></div> <div><img src='asset:assets/images/module/flutter_jalanin_flutter3.jpg' /></div> <div> <p>Lalu tekan Run</p> </div> <div><img src='asset:assets/images/module/flutter_jalanin_flutter4.jpg' /></div> <div> <p>Lalu akan muncul tampilan seperti pada digambar.</p> </div>"
   },
   {
-    "id": "materi-3",
+    "id": "materi-flutter-3",
     "nama_materi": "Apa itu Widget",
-    "materi": "Kita telah berkenalan, menginstal, dan belajar fundamental Flutter. Itu entrée alias hidangan pembukanya. Nah, sekarang kita akan menyibak ke plat du jour alias menu utamanya. Apa inti dari Flutter? Yap, widget jawabnya! Sebagian besar yang ada pada Flutter adalah widget. Jadi, relevan jika kita bilang bahwa “Flutter is all about widget.” Text sendiri adalah widget. Button juga widget. Selain itu widget juga dapat dibangun dari kumpulan beberapa widget. Lantas mengapa widget begitu penting dalam flutter? Penasaran? Mari kita bahas!"
+    "materi": "<div> <p>Pada saat mengembangkan aplikasi menggunakan Flutter, kita akan selalu membutuhkan widget-widget untuk membangun aplikasi Flutter kita.</p> </div> <div> <p>Widget adalah komponen-komponen pendukung pada Flutter seperti Button, Text, Icon dan lain sebagainya. </p> </div> <div> <p>Semua yang berada pada tampilan aplikasi kita disebut dengan Widget.</p> </div>"
   },
   {
-    "id": "materi-4",
+    "id": "materi-flutter-4",
     "nama_materi": "Stateless dan Statefull",
     "materi": "materi 4 stateless dan statefull"
   },
   {
-    "id": "materi-5",
+    "id": "materi-flutter-5",
     "nama_materi": "Scaffold",
     "materi": "materi 5 Scaffold"
   },
   {
-    "id": "materi-6",
+    "id": "materi-flutter-6",
+    "nama_materi": "Text",
+    "materi": "materi 6 Column dan Row"
+  },
+  {
+    "id": "materi-flutter-7",
+    "nama_materi": "Image",
+    "materi": "materi 6 Column dan Row"
+  },
+  {
+    "id": "materi-flutter-8",
     "nama_materi": "Column dan Row",
     "materi": "materi 6 Column dan Row"
   }

@@ -10,6 +10,7 @@ import 'package:ta_bsi/src/presentation/cubit/event/event_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/module/module_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/page/page_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/quiz/quiz_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/userModule/user_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/youtube/youtube_cubit.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_module_page.dart';
 import 'package:ta_bsi/src/presentation/pages/detail_article_page.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthCubit(),
         ),
         BlocProvider(
+          create: (context) => UserModuleCubit(),
+        ),
+        BlocProvider(
           create: (context) => CourseCubit(),
         ),
         BlocProvider(
@@ -69,13 +73,15 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: AppTheme.light,
         initialRoute: '/',
+        debugShowCheckedModeBanner: false,
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
           '/': (context) => const SplashPage(),
           '/sign-up': (context) => SignUpPage(),
           '/sign-in': (context) => SignInPage(),
           '/main': (context) => const MainPage(),
-          '/module': (context) => const ModulePage(),
+          '/module': (context) =>
+              ModulePage(ModalRoute.of(context)?.settings.arguments),
           '/detail-module': (context) =>
               DetailModulePage(ModalRoute.of(context)?.settings.arguments),
           '/quiz': (context) =>

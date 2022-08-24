@@ -46,7 +46,17 @@ class ItemButtonAnswer extends StatelessWidget {
             ),
             child: Text(keyAnswer),
           ),
-          Text(answer),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Text(
+                answer,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 5,
+                softWrap: false,
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ta_bsi/src/data/dataSources/local/json/detail_module_service.dart';
+import 'package:ta_bsi/src/data/dataSources/remote/detail_module_service.dart';
 import 'package:ta_bsi/src/data/models/detail_module_model.dart';
 
 part 'detail_module_state.dart';
@@ -15,6 +13,11 @@ class DetailModuleCubit extends Cubit<DetailModuleState> {
   late DetailModuleModel detailModule;
   late List<DetailModuleModel> module;
   late DetailModuleModel _module;
+  // late String _id;
+
+  // void setIdModule(String value) {
+  //   _id = value;
+  // }
 
   void setListIdMateri(List newListIdMateri) {
     listIdMateri = newListIdMateri;
@@ -68,27 +71,12 @@ class DetailModuleCubit extends Cubit<DetailModuleState> {
     setIndexListIdMateri(indexMateri);
   }
 
-  void clearState() {
-    module.clear();
-    _module = _module.clear();
-
-    print('module clear $_module');
-
-    emit(DetailModuleLoading());
-  }
-
-  // @override
-  // Future<void> close() {
-  //   _module.clear();
-
-  //   return super.close();
-  // }
-
-  void fetchListModule(String idModule) async {
+  void fetchListModule(String idModule, String typeModule) async {
     try {
       emit(DetailModuleLoading());
 
-      module = setModule(await DetailModuleService.getDetailModuleJson());
+      module =
+          setModule(await DetailModuleService.fetchDetailModule(typeModule));
 
       findIndexIdFromListMateri(idModule);
 

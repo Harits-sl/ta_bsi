@@ -7,11 +7,9 @@ class QuizService {
         await FirebaseDatabase.instance.ref('/quiz/$module').get();
 
     List list = snapshot.value as List;
-    print('keyys ${list[0]}');
 
     final List<QuizModel> listQuiz =
         list.map((e) => QuizModel.fromSnapshot(e)).toList();
-    print(listQuiz);
 
     return listQuiz;
   }

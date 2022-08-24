@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ta_bsi/src/data/models/course_model.dart';
 
 import 'package:ta_bsi/theme.dart';
 
 class CardCourse extends StatelessWidget {
   const CardCourse({
     Key? key,
-    required this.course,
+    required this.module,
+    required this.imageUrl,
+    required this.description,
   }) : super(key: key);
 
-  final CourseModel course;
+  final String module;
+  final String imageUrl;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +34,12 @@ class CardCourse extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
-            course.imageUrl,
+            imageUrl,
             width: 35,
           ),
           const SizedBox(height: 12),
           Text(
-            course.course,
+            module,
             style: blackTextStyle.copyWith(
               fontSize: 16,
               fontWeight: medium,
@@ -44,7 +47,7 @@ class CardCourse extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           Text(
-            course.description,
+            description,
             style: darkGreyTextStyle.copyWith(
               fontSize: 11,
               fontWeight: light,
@@ -53,14 +56,14 @@ class CardCourse extends StatelessWidget {
             softWrap: true,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 8),
-          Text(
-            '${course.manyLesson} materi',
-            style: blackTextStyle.copyWith(
-              fontSize: 11,
-              fontWeight: light,
-            ),
-          ),
+          // const SizedBox(height: 8),
+          // Text(
+          //   '${course.manyLesson} materi',
+          //   style: blackTextStyle.copyWith(
+          //     fontSize: 11,
+          //     fontWeight: light,
+          //   ),
+          // ),
         ],
       ),
     );
