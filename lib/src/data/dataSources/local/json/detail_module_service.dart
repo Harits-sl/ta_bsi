@@ -11,7 +11,7 @@ class DetailModuleService {
     List data = await json.decode(response);
 
     final List<DetailModuleModel> listModule =
-        data.map((module) => DetailModuleModel.fromJson(module)).toList();
+        data.map((module) => DetailModuleModel.fromSnapshot(module)).toList();
     return listModule;
   }
 }

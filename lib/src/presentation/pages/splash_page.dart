@@ -23,7 +23,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget body() {
     return Center(
       child: Image.asset(
-        'assets/images/logo_bsi.jpg',
+        'assets/images/logo.png',
         width: 125,
         height: 125,
       ),

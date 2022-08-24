@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:ta_bsi/src/presentation/cubit/auth/auth_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/userModule/user_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
@@ -26,33 +28,66 @@ class _DetailModulePageState extends State<DetailModulePage> {
     _index = 0;
     _scrollController = ScrollController();
 
-    context.read<DetailModuleCubit>().fetchListModule(widget.arguments['id']);
+    context
+        .read<DetailModuleCubit>()
+        .fetchListModule(widget.arguments['id'], widget.arguments['module']);
   }
 
   // @override
   // void dispose() {
-  //   _detailModuleCubit.close();
+  //   // _detailModuleCubit.close();
+  //   this.mounted = false;
   //   super.dispose();
   // }
 
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   /// fungsi untuk button continue
-  void onPressedButtonContinue(int endCourse) {
+  void onPressedButtonContinue(String id, int endCourse) {
     /// jika [_index] sama dengan banyaknya paragraf
     if (_index == endCourse) {
       context.read<DetailModuleCubit>().incrementIndexListIdMateri();
       context.read<DetailModuleCubit>().fetchNewListModule();
-      setState(() {
-        _index = 0;
-      });
+      AuthState authUserState = context.read<AuthCubit>().state;
+
+      if (authUserState is AuthSuccess) {
+        context.read<UserModuleCubit>().updateUserModule(
+              idUser: authUserState.user.id,
+              idModule: id,
+              moduleDone: true,
+              module: widget.arguments['module'],
+            );
+      }
+
+      if (mounted) {
+        // check whether the state object is in tree
+        setState(() {
+          // make changes here
+          _index = 0;
+        });
+      }
+      // setState(() {
+      // });
 
       return;
     }
 
     if (_index != endCourse) {
       // context.read<IndexDetailModuleCubit>().incrementIndex();
-      setState(() {
-        _index++;
-      });
+      if (mounted) {
+        // check whether the state object is in tree
+        setState(() {
+          // make changes here
+          _index++;
+        });
+      }
+      // setState(() {
+      // });
 
       WidgetsBinding.instance!.addPostFrameCallback(
         (_) => {
@@ -68,25 +103,6 @@ class _DetailModulePageState extends State<DetailModulePage> {
     }
   }
 
-  // void splitHtml(String html) {
-  //   // clear terlebih dahulu karena setiap render ulang memanggil fungsi ini
-  //   listSplitHtml.clear();
-  //   // melakukan split html <div>
-  //   List<String> split = html.split("<div>");
-
-  //   // tambahkan lagi <div>
-  //   for (int i = 0; i < split.length; i++) {
-  //     split[i] = '<div>' + split[i];
-
-  //     // memasukan data yang sudah ditambahkan div kedalam list
-  //     listSplitHtml.add(split[i]);
-  //   }
-
-  //   // hapus list pertama karena list pertama kosong
-  //   listSplitHtml.remove('<div>');
-  //   print(listSplitHtml.length);
-  // }
-
   @override
   Widget build(BuildContext context) {
     void onTapAppBar() {
@@ -94,16 +110,6 @@ class _DetailModulePageState extends State<DetailModulePage> {
 
       Go.back(context);
     }
-
-    /// filter atau mencari materi yang cocok dari argument id dengan
-    /// listDummyCourse
-    // DetailModuleModel findDetailModule(List listDetailModule) {
-    //   DetailModuleModel _course = listDetailModule
-    //       .where((item) => item.id == widget.arguments['id'])
-    //       .toList()
-    //       .first;
-    //   return _course;
-    // }
 
     Widget appBar(String title) {
       return CustomAppBar(title: title, onTap: onTapAppBar);
@@ -151,7 +157,7 @@ class _DetailModulePageState extends State<DetailModulePage> {
       );
     }
 
-    Widget buttonContinue(int endCourse) {
+    Widget buttonContinue(String id, int endCourse) {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
@@ -169,7 +175,7 @@ class _DetailModulePageState extends State<DetailModulePage> {
                   isNotSplash: true,
                   borderRadius: 50,
                   onPressed: () {
-                    onPressedButtonContinue(endCourse);
+                    onPressedButtonContinue(id, endCourse);
                   },
                   textStyle: primaryTextStyle.copyWith(
                     fontSize: 14,
@@ -181,7 +187,7 @@ class _DetailModulePageState extends State<DetailModulePage> {
                   backgroundColor: primaryColor,
                   borderRadius: 50,
                   onPressed: () {
-                    onPressedButtonContinue(endCourse);
+                    onPressedButtonContinue(id, endCourse);
                   },
                   textStyle: whiteTextStyle.copyWith(
                     fontSize: 14,
@@ -196,7 +202,6 @@ class _DetailModulePageState extends State<DetailModulePage> {
       return SafeArea(
         child: BlocBuilder<DetailModuleCubit, DetailModuleState>(
           builder: (context, state) {
-            print('statessss $state');
             if (state is DetailModuleInitial) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -208,7 +213,10 @@ class _DetailModulePageState extends State<DetailModulePage> {
                 children: [
                   appBar(state.module.namaMateri),
                   course(state.listMateri),
-                  buttonContinue(state.listMateri.length - 1),
+                  buttonContinue(
+                    state.module.id,
+                    state.listMateri.length - 1,
+                  ),
                 ],
               );
             }

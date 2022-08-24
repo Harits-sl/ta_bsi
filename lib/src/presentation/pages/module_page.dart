@@ -1,17 +1,23 @@
 import 'dart:math' as math;
 import 'package:expandable/expandable.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_bsi/src/data/models/module_model.dart';
+import 'package:ta_bsi/src/presentation/cubit/auth/auth_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.dart';
 
 import 'package:ta_bsi/src/presentation/cubit/module/module_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/userModule/user_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/utils/helper/string_helper.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class ModulePage extends StatefulWidget {
-  const ModulePage({Key? key}) : super(key: key);
+  const ModulePage(this.arguments, {Key? key}) : super(key: key);
+
+  final dynamic arguments;
 
   @override
   State<ModulePage> createState() => _ModulePageState();
@@ -21,17 +27,29 @@ class _ModulePageState extends State<ModulePage> {
   /// variable menampung id materi
   late List<String?> listIdMateri;
 
+  /// variable index untuk untuk user module is done
+  /// mengikuti banyaknya materi
+  late int indexForUserModuleDone;
+
   @override
   void initState() {
     super.initState();
 
     listIdMateri = [];
 
-    context.read<ModuleCubit>().fetchListModule();
+    indexForUserModuleDone = 0;
+
+    context.read<ModuleCubit>().fetchListModule(widget.arguments['module']);
+    // authState = context.read<AuthCubit>().state;
+    // userModuleState = context.read<UserModuleCubit>().state;
+    // print(authState.);
   }
 
   @override
   Widget build(BuildContext context) {
+    AuthState authState = context.read<AuthCubit>().state;
+    UserModuleState userModuleState = context.read<UserModuleCubit>().state;
+
     void onTap(String id, List listMateri) {
       // menampung string dari nilai kembalian splitId
       String parts = StringHelper.splitId(id);
@@ -44,9 +62,6 @@ class _ModulePageState extends State<ModulePage> {
           break;
         case 'quiz':
           path = '/quiz';
-          break;
-        case 'submission':
-          path = '/submission';
           break;
         default:
           path = '/detail-module';
@@ -63,6 +78,7 @@ class _ModulePageState extends State<ModulePage> {
         path: path,
         arguments: {
           'id': id,
+          'module': widget.arguments['module'],
         },
       );
 
@@ -73,14 +89,29 @@ class _ModulePageState extends State<ModulePage> {
       Go.back(context);
     }
 
-    Widget module() {
-      Widget itemModule(List materiKelas) {
+    Widget module({
+      required List<ModuleModel> module,
+      required List<Map> listModuleDone,
+    }) {
+      Widget itemModule({
+        required List materiKelas,
+      }) {
+        listIdMateri.clear();
+        indexForUserModuleDone = 0;
+        print('list id materi $listIdMateri');
         return ListView.builder(
           itemCount: materiKelas.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             listIdMateri.add(materiKelas[index]['id']);
+
+            if (indexForUserModuleDone != listIdMateri.length) {
+              indexForUserModuleDone++;
+            }
+
+            print(indexForUserModuleDone);
+
             return GestureDetector(
               onTap: () => onTap(materiKelas[index]['id'], materiKelas),
               child: Container(
@@ -94,24 +125,35 @@ class _ModulePageState extends State<ModulePage> {
                   color: lightGreyColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      materiKelas[index]['nama_materi'],
-                      style: blackTextStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: regular,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: Text(
+                            materiKelas[index]['nama_materi'],
+                            style: blackTextStyle.copyWith(
+                              fontSize: 14,
+                              fontWeight: regular,
+                            ),
+                          ),
+                        ),
+                        // const SizedBox(height: 2),
+                        // Text(
+                        //   '${materiKelas[index]['durasi']} menit',
+                        //   style: darkGreyTextStyle.copyWith(
+                        //     fontSize: 12,
+                        //     fontWeight: light,
+                        //   ),
+                        // ),
+                      ],
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      '${materiKelas[index]['durasi']} menit',
-                      style: darkGreyTextStyle.copyWith(
-                        fontSize: 12,
-                        fontWeight: light,
-                      ),
-                    ),
+                    listModuleDone[indexForUserModuleDone - 1]['isDone']
+                        ? Icon(Icons.done_rounded)
+                        : const SizedBox(),
                   ],
                 ),
               ),
@@ -128,60 +170,55 @@ class _ModulePageState extends State<ModulePage> {
             iconColor: blackColor,
             expandIcon: Icons.chevron_right_rounded,
           ),
-          child: BlocBuilder<ModuleCubit, ModuleState>(
-            builder: (context, state) {
-              if (state is ModuleSuccess) {
-                return Column(
-                  children: state.module.map((item) {
-                    return Container(
-                      padding: EdgeInsets.only(
-                        top: 12,
-                        bottom: 12,
-                        left: defaultMargin,
-                        right: defaultMargin,
-                      ),
-                      margin: const EdgeInsets.only(
-                        bottom: 12,
-                      ),
-                      color: whiteColor,
-                      child: ExpandableNotifier(
-                        initialExpanded: true,
-                        child: ExpandablePanel(
-                          header: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.level,
-                                style: darkGreyTextStyle.copyWith(
-                                  fontSize: 11,
-                                  fontWeight: light,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                item.modul,
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: semiBold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          collapsed: const SizedBox(), //  kosong
-                          expanded: Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 12, // dikurang dari padding container
-                            ),
-                            child: itemModule(item.materiKelas),
+          child: Column(
+            children: module.map((item) {
+              return Container(
+                padding: EdgeInsets.only(
+                  top: 12,
+                  bottom: 12,
+                  left: defaultMargin,
+                  right: defaultMargin,
+                ),
+                margin: const EdgeInsets.only(
+                  bottom: 12,
+                ),
+                color: whiteColor,
+                child: ExpandableNotifier(
+                  initialExpanded: true,
+                  child: ExpandablePanel(
+                    header: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.level,
+                          style: darkGreyTextStyle.copyWith(
+                            fontSize: 11,
+                            fontWeight: light,
                           ),
                         ),
+                        const SizedBox(height: 2),
+                        Text(
+                          item.modul,
+                          style: blackTextStyle.copyWith(
+                            fontSize: 14,
+                            fontWeight: semiBold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    collapsed: const SizedBox(), //  kosong
+                    expanded: Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 12, // dikurang dari padding container
                       ),
-                    );
-                  }).toList(),
-                );
-              }
-              return const SizedBox();
-            },
+                      child: itemModule(
+                        materiKelas: item.materiKelas,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
           ),
         );
       }
@@ -194,14 +231,112 @@ class _ModulePageState extends State<ModulePage> {
 
     Widget body() {
       return SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomAppBar(title: 'Daftar Modul', onTap: onTapAppBar),
-              module(),
-            ],
-          ),
+        child: BlocBuilder<ModuleCubit, ModuleState>(
+          builder: (context, moduleState) {
+            if (moduleState is ModuleSuccess) {
+              List<String> idModule = [];
+              for (var item in moduleState.module) {
+                for (var item1 in item.materiKelas) {
+                  idModule.add(item1['id']);
+                }
+              }
+
+              /// jika [authState] statenya [AuthSuccess] get user module by id
+              /// dari cubit user module
+              if (authState is AuthSuccess) {
+                context.read<UserModuleCubit>().getUserModuleById(
+                      idUser: authState.user.id,
+                      idModule: idModule,
+                      module: widget.arguments['module'],
+                    );
+                print('state1');
+
+                DatabaseReference starCountRef = FirebaseDatabase.instance.ref(
+                    'user-module/${authState.user.id}/${widget.arguments['module']}');
+                starCountRef.onChildChanged.listen((event) {
+                  setState(() {
+                    listIdMateri.clear();
+                    indexForUserModuleDone = 0;
+                    print('list id materi $listIdMateri');
+                    print('index $indexForUserModuleDone');
+                  });
+                });
+
+                /// jika [userModuleState] statenya [UserModuleFailed]
+                /// set user module ke firebase dari cubit userModule
+                /// lalu get user module by id dari cubit userModule
+                if (userModuleState is UserModuleFailed) {
+                  // context.read<UserModuleCubit>().setUserModule(
+                  //       idUser: authState.user.id,
+                  //       idModule: idModule,
+                  //     );
+                  // print('state2');
+
+                  context.read<UserModuleCubit>().getUserModuleById(
+                        idUser: authState.user.id,
+                        idModule: idModule,
+                        module: widget.arguments['module'],
+                      );
+                  print('state3');
+                }
+              }
+
+              // List<UserModuleModel> userModule = [];
+
+              // List<UserModuleModel>? getStateUserModule () {
+              // if (userModuleState is UserModuleSuccess) {
+              //   // moduleState.module.addAll(userModuleState.userModule);
+              //   return userModuleState.userModule;
+              // }
+
+              // }
+              // if(userModule.isEmpty) getStateUserModule();
+
+              // print(getStateUserModule);
+              // for (var i = 0; i < moduleState.module.length; i++) {
+              //   newList
+              // }
+
+              return BlocBuilder<UserModuleCubit, UserModuleState>(
+                buildWhen: (previousState, state) {
+                  return (state is UserModuleSuccess);
+                },
+                builder: (context, state) {
+                  if (state is UserModuleFailed) {
+                    print('state5');
+                    setState(() {});
+                    print('state6');
+                  }
+                  if (state is UserModuleSuccess) {
+                    List<Map> listModuleDone = [];
+
+                    for (var item in state.userModule) {
+                      listModuleDone.add({
+                        'idModule': item.idModule,
+                        'isDone': item.isDone,
+                      });
+                    }
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomAppBar(
+                              title: 'Daftar Modul', onTap: onTapAppBar),
+                          module(
+                            module: moduleState.module,
+                            listModuleDone: listModuleDone,
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return SizedBox();
+                },
+              );
+            }
+            return SizedBox();
+          },
         ),
       );
     }

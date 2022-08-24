@@ -29,7 +29,11 @@ class SignInPage extends StatelessWidget {
     }
 
     void routeMainPage() {
-      Go.routeWithPath(context: context, path: '/main');
+      context.read<AuthCubit>().signIn(
+            email: 'test123@gmail.com',
+            password: 'test123',
+          );
+      // Go.routeWithPath(context: context, path: '/main');
     }
 
     void signInWithGoogle() {}
@@ -40,7 +44,11 @@ class SignInPage extends StatelessWidget {
           left: defaultMargin,
           top: defaultMargin,
         ),
-        child: Image.asset('assets/images/logo_bsi.jpg', width: 50, height: 50),
+        child: Image.asset(
+          'assets/images/logo.png',
+          width: 50,
+          height: 50,
+        ),
       );
     }
 
@@ -222,8 +230,8 @@ class SignInPage extends StatelessWidget {
                   formSignIn(),
                   buttonSignIn(),
                   buttonDebugOnly(),
-                  orDivider(),
-                  buttonSignInGoogle(),
+                  // orDivider(),
+                  // buttonSignInGoogle(),
                   createAccount(),
                 ],
               ),

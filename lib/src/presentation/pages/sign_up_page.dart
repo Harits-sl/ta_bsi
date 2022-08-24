@@ -36,7 +36,11 @@ class SignUpPage extends StatelessWidget {
           left: defaultMargin,
           top: defaultMargin,
         ),
-        child: Image.asset('assets/images/logo_bsi.jpg', width: 50, height: 50),
+        child: Image.asset(
+          'assets/images/logo.png',
+          width: 50,
+          height: 50,
+        ),
       );
     }
 
@@ -207,8 +211,8 @@ class SignUpPage extends StatelessWidget {
                 children: [
                   formSignUp(),
                   buttonSignUp(),
-                  orDivider(),
-                  buttonSignInGoogle(),
+                  // orDivider(),
+                  // buttonSignInGoogle(),
                   haveAccount(),
                 ],
               ),

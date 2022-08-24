@@ -13,12 +13,12 @@ class ModuleModel extends Equatable {
     required this.materiKelas,
   });
 
-  factory ModuleModel.fromJson(Map<String, dynamic> json) {
+  factory ModuleModel.fromSnapshot(Map<dynamic, dynamic> snapshot) {
     return ModuleModel(
-      id: json['id'] ?? '',
-      modul: json['modul'] ?? '',
-      level: json['level'] ?? '',
-      materiKelas: json['materi_kelas'] ?? [],
+      id: snapshot['id'] ?? '',
+      modul: snapshot['modul'] ?? '',
+      level: snapshot['level'] ?? '',
+      materiKelas: snapshot['materi_kelas'] ?? [],
     );
   }
 

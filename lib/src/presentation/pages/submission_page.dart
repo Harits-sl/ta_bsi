@@ -8,7 +8,7 @@ class SubmissionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String url =
-        'https://dartpad.dev/embed-flutter.html?gh_owner=JoseAlba&gh_repo=flutter_code&gh_path=lib/dartpad&theme=dark&run=true&split=50';
+        'https://dartpad.dev/embed-inline.html?gh_owner=Harits-sl&gh_repo=ta_bsi&gh_path=assets/dartpad&gh_ref=debugging&theme=dark';
 
     Widget body() {
       return SafeArea(

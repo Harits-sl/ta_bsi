@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ta_bsi/src/data/models/quiz_model.dart';
+import 'package:ta_bsi/src/presentation/cubit/quiz/quiz_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
 import 'package:ta_bsi/src/presentation/widgets/item_button_answer.dart';
+import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class QuizPage extends StatefulWidget {
@@ -32,6 +36,13 @@ class _QuizPageState extends State<QuizPage> {
   /// sudah dijawab atau belom
   late bool _isAnswered;
 
+  /// variabel boolean apakah kuis
+  /// sudah selesai atau belom
+  late bool _isQuizDone;
+
+  /// variabel banyaknya jawaban yang dijawab benar
+  late int _manyCorrectAnswer;
+
   // style untuk buttonContinue
   /// textStyle untuk teks button continue
   late TextStyle? textStyleButtonContinue;
@@ -54,10 +65,13 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
+    context.read<QuizCubit>().fetchListQuiz('dart');
 
     _answer = Answer.notAnswered;
     _isAnswered = false;
+    _isQuizDone = false;
     _indexForQuestion = 0;
+    _manyCorrectAnswer = 0;
 
     textStyleButtonContinue = darkGreyTextStyle;
     backgroundContainerButtonContinue = whiteColor;
@@ -100,6 +114,7 @@ class _QuizPageState extends State<QuizPage> {
         break;
       case Answer.correct:
         setState(() {
+          _manyCorrectAnswer++;
           textStyleButtonContinue = whiteTextStyle;
           backgroundContainerButtonContinue = lightGreenColor;
           backgroundButtonContinue = greenColor;
@@ -141,6 +156,28 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
+  void showDialogFinishQuiz() {
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          'Kamu menjawab benar sebanyak $_manyCorrectAnswer soal',
+          style: blackTextStyle.copyWith(
+            fontSize: 20,
+            fontWeight: semiBold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => onTapRouteToHome(),
+            child: const Text('Kembali ke halaman utama'),
+          ),
+        ],
+      ),
+    );
+  }
+
   void onTapButtonAnswer({
     required String correctAnswer,
     required String tapKeyAnswer,
@@ -167,12 +204,18 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void onTapButtonContinue() {
-    /// jika [_indexForQuestion] sama dengan banyaknya pertanyaan atau
-    /// [_isAnswered] false / belom dijawab maka return kosong
-    /// perintah ini membuat button tidak bisa digunakan / disabled
-    if (_indexForQuestion == 1 || !_isAnswered) {
+    /// jika [_indexForQuestion] sama dengan banyaknya pertanyaan
+    if (_indexForQuestion == 4) {
+      setState(() {
+        _isQuizDone = true;
+        showDialogFinishQuiz();
+      });
       return;
     }
+
+    /// [_isAnswered] false / belom dijawab maka return kosong
+    /// perintah ini membuat button tidak bisa digunakan / disabled
+    if (!_isAnswered) return;
 
     /// increment [_indexForQuestion], ubah value [_isAnswered] menjadi false
     ///  ubah value [_answer] menjadi Answer.notAnswered
@@ -186,40 +229,12 @@ class _QuizPageState extends State<QuizPage> {
     changeState();
   }
 
+  void onTapRouteToHome() {
+    Go.routeWithPathAndRemove(context: context, path: '/main');
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> listDummyQuiz = [
-      {
-        'question': 'Apa itu flutter?',
-        'image_url': 'assets/images/dart_comments.png',
-        'answer': [
-          {
-            '1': 'flutter adalah framework',
-            '2': 'flutter adalah bahasa',
-            '3': 'flutter adalah program',
-            '4': 'semua salah',
-          },
-        ],
-        'correct_answer': '1',
-        'explanation':
-            'karena flutter adalah framework adsadsadjfnsefdasdsfsaf fdewqffef dasfsaffef qf32rf4g 3452345 dfewf r23r3r fwefewf',
-      },
-      {
-        'question': 'Apa itu dart?',
-        'image_url': 'assets/images/dart_comments.png',
-        'answer': [
-          {
-            '1': 'Dart adalah framework',
-            '2': 'Dart adalah bahasa',
-            '3': 'Dart adalah program',
-            '4': 'semua salah',
-          },
-        ],
-        'correct_answer': '2',
-        'explanation': 'karena dart adalah framework adsadsadjfnsef',
-      },
-    ];
-
     Widget appBar() {
       return CustomAppBar(onTap: () {});
     }
@@ -247,10 +262,11 @@ class _QuizPageState extends State<QuizPage> {
           right: defaultMargin,
         ),
         child: Image.asset(imageUrl),
+        // child: Image.asset('assets/images/ic_flutter.png'),
       );
     }
 
-    Widget listButtonAnswer() {
+    Widget listButtonAnswer(List<QuizModel> quiz) {
       return ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -258,14 +274,12 @@ class _QuizPageState extends State<QuizPage> {
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           // variable dari key answer
-          String keyAnswer = listDummyQuiz[_indexForQuestion]['answer'][0]
-              .keys
-              .elementAt(index);
+          String keyAnswer =
+              quiz[_indexForQuestion].answer.keys.elementAt(index);
           return GestureDetector(
             onTap: () {
               onTapButtonAnswer(
-                correctAnswer: listDummyQuiz[_indexForQuestion]
-                    ['correct_answer'],
+                correctAnswer: quiz[_indexForQuestion].correctAnswer,
                 tapKeyAnswer: keyAnswer,
               );
             },
@@ -276,8 +290,7 @@ class _QuizPageState extends State<QuizPage> {
                     : 0,
               ),
               child: ItemButtonAnswer(
-                answer: listDummyQuiz[_indexForQuestion]['answer'][0]
-                    ['${index + 1}'],
+                answer: quiz[_indexForQuestion].answer[keyAnswer],
                 keyAnswer: keyAnswer,
               ),
             ),
@@ -286,7 +299,13 @@ class _QuizPageState extends State<QuizPage> {
       );
     }
 
-    Widget explanationAnswer() {
+    Widget explanationAnswer(List<QuizModel> quiz) {
+      /// replace '/n' from firebase to '\n'
+      /// karena firebase tidak bisa mengenali escape string
+      /// maka diubah ke '/n'
+      String explanation =
+          quiz[_indexForQuestion].explanation.replaceAll('/n', '\n');
+
       return Container(
         margin: EdgeInsets.only(
           left: defaultMargin,
@@ -294,14 +313,50 @@ class _QuizPageState extends State<QuizPage> {
           bottom: 45 + 20 + 16 + 12, // tinggi buttonContinue
         ),
         child: Text(
-          listDummyQuiz[_indexForQuestion]['explanation'],
+          explanation,
           style: blackTextStyle.copyWith(
             fontWeight: regular,
             height: 1.8,
           ),
+          textAlign: TextAlign.justify,
         ),
       );
     }
+
+    // void finishQuiz() {
+    // return Center(
+    //   child: Container(
+    //     constraints: const BoxConstraints(
+    //       maxHeight: 250,
+    //     ),
+    //     margin: EdgeInsets.all(defaultMargin),
+    //     padding: EdgeInsets.all(defaultMargin),
+    //     decoration: BoxDecoration(
+    //       color: whiteColor,
+    //       borderRadius: BorderRadius.circular(16),
+    //       border: Border.all(color: darkGreyColor),
+    //     ),
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Text(
+    //           'Kamu menjawab benar sebanyak $_manyCorrectAnswer soal',
+    //           style: blackTextStyle.copyWith(
+    //             fontSize: 20,
+    //             fontWeight: semiBold,
+    //           ),
+    //           textAlign: TextAlign.center,
+    //         ),
+    //         const SizedBox(height: 12),
+    //         CustomButton(
+    //           title: 'Kembali ke halaman utama',
+    //           onPressed: onTapRouteToHome,
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    // }
 
     Widget buttonContinue() {
       return Align(
@@ -341,7 +396,7 @@ class _QuizPageState extends State<QuizPage> {
                     bottom: 16,
                   ),
                   child: CustomButton(
-                    title: 'Continue',
+                    title: _indexForQuestion == 4 ? 'Finish Quiz' : 'Continue',
                     onPressed: onTapButtonContinue,
                     backgroundColor: backgroundButtonContinue,
                     borderRadius: 12,
@@ -359,25 +414,33 @@ class _QuizPageState extends State<QuizPage> {
 
     Widget body() {
       return SafeArea(
-        child: Stack(
-          children: [
-            ListView(
-              children: [
-                appBar(),
-                titleQuestion(listDummyQuiz[_indexForQuestion]['question']),
-                imageQuestion(listDummyQuiz[_indexForQuestion]['image_url']),
+        child: BlocBuilder<QuizCubit, QuizState>(
+          builder: (context, state) {
+            if (state is QuizSuccess) {
+              return Stack(
+                children: [
+                  ListView(
+                    children: [
+                      appBar(),
+                      titleQuestion(state.quiz[_indexForQuestion].question),
+                      imageQuestion(state.quiz[_indexForQuestion].imageUrl),
 
-                /// jika [_answer] nilainya Answer.notAnswered
-                /// tampilkan listButtonAnswer
-                /// jika [_answer] nilainya Answer.correct / inCorrect
-                /// tampilkan descriptionAnswer
-                _answer == Answer.notAnswered
-                    ? listButtonAnswer()
-                    : explanationAnswer(),
-              ],
-            ),
-            buttonContinue(),
-          ],
+                      /// jika [_answer] nilainya Answer.notAnswered
+                      /// tampilkan listButtonAnswer
+                      /// jika [_answer] nilainya Answer.correct / inCorrect
+                      /// tampilkan descriptionAnswer
+                      _answer == Answer.notAnswered
+                          ? listButtonAnswer(state.quiz)
+                          : explanationAnswer(state.quiz),
+                    ],
+                  ),
+                  buttonContinue(),
+                  // _isQuizDone ? finishQuiz() : Container(),
+                ],
+              );
+            }
+            return const SizedBox();
+          },
         ),
       );
     }
