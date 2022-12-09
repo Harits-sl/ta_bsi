@@ -17,26 +17,26 @@
   {
     "id": "materi-flutter-4",
     "nama_materi": "Stateless dan Statefull",
-    "materi": "materi 4 stateless dan statefull"
+    "materi": "<div> <p>Widget pada Flutter memiliki dua jenis, yaitu StatelessWidget dan StatefulWidget.</p> </div> <div> <p>Sebelum membahas kedua jenis widget tersebut, kita harus berkenalan terlebih dahulu dengan istilah State.</p> </div> <div> <p>State adalah data yang ada pada suatu widget.</p> </div> <div> <p>Widget menyimpan data yang nantinya dapat berubah sesuai interaksi pengguna.</p> </div> <div> <p>Setelah mengenal apa itu state, maka yang pertama kita akan bahas adalah StatelessWidget.</p> </div> <div> <p>StatelessWidget adalah widget yang nilai state-nya tidak dapat berubah (immutable) maka widget tersebut lebih bersifat statis dan memiliki interaksi yang terbatas.</p> </div> <div> <p>Kebalikan dari StatelessWidget, StatefulWidget ialah widget yang state-nya dapat berubah-ubah nilainya, yang berarti StatefulWidget bersifat dinamis dan memiliki interaksi yang tak terbatas.</p> </div>"
   },
   {
     "id": "materi-flutter-5",
     "nama_materi": "Scaffold",
-    "materi": "materi 5 Scaffold"
+    "materi": "<div> <p>Widget pada Flutter memiliki dua jenis, yaitu StatelessWidget dan StatefulWidget.</p> </div> <div> <p>Sebelum membahas kedua jenis widget tersebut, kita harus berkenalan terlebih dahulu dengan istilah State.</p> </div> <div> <p>State adalah data yang ada pada suatu widget.</p> </div> <div> <p>Widget menyimpan data yang nantinya dapat berubah sesuai interaksi pengguna.</p> </div> <div> <p>Setelah mengenal apa itu state, maka yang pertama kita akan bahas adalah StatelessWidget.</p> </div> <div> <p>StatelessWidget adalah widget yang nilai state-nya tidak dapat berubah (immutable) maka widget tersebut lebih bersifat statis dan memiliki interaksi yang terbatas.</p> </div> <div> <p>Kebalikan dari StatelessWidget, StatefulWidget ialah widget yang state-nya dapat berubah-ubah nilainya, yang berarti StatefulWidget bersifat dinamis dan memiliki interaksi yang tak terbatas.</p> </div>"
   },
   {
     "id": "materi-flutter-6",
     "nama_materi": "Text",
-    "materi": "materi 6 Column dan Row"
+    "materi": "<div> <p> Teks adalah bagian yang sangat penting dari sebuah UI aplikasi mobile mana pun. Pada Flutter, untuk menampilkan text kita dapat menggunakan Text widget. </p> </div> <div> <p>Contoh penggunaan widget Text</p> </div> <div><img src='asset:assets/images/module/flutter_text.png' /></div> <div> <p>Ketika dijalankan tampilan akan seperti ini</p> </div> <div><img src='asset:assets/images/module/flutter_text1.png' /></div>"
   },
   {
     "id": "materi-flutter-7",
     "nama_materi": "Image",
-    "materi": "materi 6 Column dan Row"
+    "materi": "<div> <p> Pada sebuah aplikasi, gambar merupakan salah satu bagian penting untuk menghasilkan visual yang lebih menarik juga dapat meningkatkan kualitas interaktif terhadap pengguna menjadi lebih baik. </p> </div> <div> <p>Penggunaan Widget Image</p> </div> <div><img src='asset:assets/images/module/flutter_image.png' /></div> <div> <p>Tampilan yang akan dihasilkan</p> </div> <div><img src='asset:assets/images/module/flutter_image1.jpg' /></div>"
   },
   {
     "id": "materi-flutter-8",
     "nama_materi": "Column dan Row",
-    "materi": "materi 6 Column dan Row"
+    "materi": "<div> <p>Row dan column widget berfungsi untuk mengatur tata letak atau layout widget lainnya dalam sebuah aplikasi flutter.</p> </div> <div> <p>Apabila anda pernah menggunakan excel atau membuat suatu table, maka seperti itulah konsep row dan column pada flutter.</p> </div> <div> <p>Row widget adalah widget yang digunakan untuk memposisikan widget-widget lainnya secara horizontal.</p> </div> <div> <p>Sedangkan column widget digunakan untuk menempatkan widget secara menurun atau vertical.</p> </div> <div> <p>Penggunaan Row</p> </div> <div><img src='asset:assets/images/module/flutter_row_column.png' /></div> <div> <p>Tampilan yang akan dihasilkan</p> </div> <div><img src='asset:assets/images/module/flutter_row_column1.jpg' /></div> <div> <p>Penggunaan Column</p> </div> <div><img src='asset:assets/images/module/flutter_row_column2.png' /></div> <div> <p>Tampilan yang akan dihasilkan</p> </div> <div><img src='asset:assets/images/module/flutter_row_column3.jpg' /></div>"
   }
 ]

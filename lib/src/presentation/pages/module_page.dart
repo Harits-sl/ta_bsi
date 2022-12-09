@@ -8,6 +8,7 @@ import 'package:ta_bsi/src/presentation/cubit/auth/auth_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.dart';
 
 import 'package:ta_bsi/src/presentation/cubit/module/module_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/quiz/quiz_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/userModule/user_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/utils/helper/string_helper.dart';
@@ -39,7 +40,11 @@ class _ModulePageState extends State<ModulePage> {
 
     indexForUserModuleDone = 0;
 
-    context.read<ModuleCubit>().fetchListModule(widget.arguments['module']);
+    context.read<ModuleCubit>().fetchListModule(widget.arguments['typeModule']);
+
+    /// set type module di quiz cubit
+    context.read<QuizCubit>().setTypeModule(widget.arguments['typeModule']);
+
     // authState = context.read<AuthCubit>().state;
     // userModuleState = context.read<UserModuleCubit>().state;
     // print(authState.);
@@ -67,10 +72,12 @@ class _ModulePageState extends State<ModulePage> {
           path = '/detail-module';
       }
 
-      for (var materi in listMateri) {
-        listIdMateri.add(materi['id']);
-      }
+      // for (var materi in listMateri) {
+      //   listIdMateri.add(materi['id']);
+      //   debugPrint('materi["id"]: ${materi['id']}');
+      // }
 
+      debugPrint('listIdMateri: $listIdMateri');
       context.read<DetailModuleCubit>().setListIdMateri(listIdMateri);
 
       Go.routeWithPath(
@@ -78,7 +85,7 @@ class _ModulePageState extends State<ModulePage> {
         path: path,
         arguments: {
           'id': id,
-          'module': widget.arguments['module'],
+          'module': widget.arguments['typeModule'],
         },
       );
 
@@ -98,7 +105,6 @@ class _ModulePageState extends State<ModulePage> {
       }) {
         listIdMateri.clear();
         indexForUserModuleDone = 0;
-        print('list id materi $listIdMateri');
         return ListView.builder(
           itemCount: materiKelas.length,
           shrinkWrap: true,
@@ -109,8 +115,6 @@ class _ModulePageState extends State<ModulePage> {
             if (indexForUserModuleDone != listIdMateri.length) {
               indexForUserModuleDone++;
             }
-
-            print(indexForUserModuleDone);
 
             return GestureDetector(
               onTap: () => onTap(materiKelas[index]['id'], materiKelas),
@@ -128,28 +132,17 @@ class _ModulePageState extends State<ModulePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Text(
-                            materiKelas[index]['nama_materi'],
-                            style: blackTextStyle.copyWith(
-                              fontSize: 14,
-                              fontWeight: regular,
-                            ),
-                          ),
+                    Expanded(
+                      child: Text(
+                        materiKelas[index]['nama_materi'],
+                        style: blackTextStyle.copyWith(
+                          fontSize: 14,
+                          fontWeight: regular,
                         ),
-                        // const SizedBox(height: 2),
-                        // Text(
-                        //   '${materiKelas[index]['durasi']} menit',
-                        //   style: darkGreyTextStyle.copyWith(
-                        //     fontSize: 12,
-                        //     fontWeight: light,
-                        //   ),
-                        // ),
-                      ],
+                        maxLines: 3,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     listModuleDone[indexForUserModuleDone - 1]['isDone']
                         ? Icon(Icons.done_rounded)
@@ -241,24 +234,25 @@ class _ModulePageState extends State<ModulePage> {
                 }
               }
 
+              /// set id quiz
+              context.read<QuizCubit>().setIdQuiz(idModule.last);
+
               /// jika [authState] statenya [AuthSuccess] get user module by id
               /// dari cubit user module
               if (authState is AuthSuccess) {
                 context.read<UserModuleCubit>().getUserModuleById(
                       idUser: authState.user.id,
                       idModule: idModule,
-                      module: widget.arguments['module'],
+                      module: widget.arguments['typeModule'],
                     );
-                print('state1');
 
+                /// ada perubahan data lakukan setstate
                 DatabaseReference starCountRef = FirebaseDatabase.instance.ref(
-                    'user-module/${authState.user.id}/${widget.arguments['module']}');
+                    'user-module/${authState.user.id}/${widget.arguments['typeModule']}');
                 starCountRef.onChildChanged.listen((event) {
                   setState(() {
                     listIdMateri.clear();
                     indexForUserModuleDone = 0;
-                    print('list id materi $listIdMateri');
-                    print('index $indexForUserModuleDone');
                   });
                 });
 
@@ -303,14 +297,13 @@ class _ModulePageState extends State<ModulePage> {
                 },
                 builder: (context, state) {
                   if (state is UserModuleFailed) {
-                    print('state5');
                     setState(() {});
-                    print('state6');
                   }
                   if (state is UserModuleSuccess) {
                     List<Map> listModuleDone = [];
 
                     for (var item in state.userModule) {
+                      debugPrint(item.idModule);
                       listModuleDone.add({
                         'idModule': item.idModule,
                         'isDone': item.isDone,

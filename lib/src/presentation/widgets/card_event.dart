@@ -40,8 +40,9 @@ class CardEvent extends StatelessWidget {
             ),
             child: Image.asset(
               event.imageUrl,
+              width: double.infinity,
               height: 100,
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
           Padding(
@@ -68,6 +69,10 @@ class CardEvent extends StatelessWidget {
                     fontSize: 11,
                     fontWeight: light,
                   ),
+                  maxLines: 2,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.justify,
                 ),
               ],
             ),

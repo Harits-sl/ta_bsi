@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -30,11 +28,17 @@ class CustomAppBar extends StatelessWidget {
           ),
           title == null
               ? Container()
-              : Text(
-                  title!,
-                  style: blackTextStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: medium,
+              : Expanded(
+                  child: Text(
+                    title!,
+                    style: blackTextStyle.copyWith(
+                      fontSize: 14,
+                      fontWeight: medium,
+                    ),
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
           const SizedBox(width: 24), // hanya untuk spacing

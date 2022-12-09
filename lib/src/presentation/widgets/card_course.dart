@@ -36,6 +36,7 @@ class CardCourse extends StatelessWidget {
           Image.asset(
             imageUrl,
             width: 35,
+            height: 50,
           ),
           const SizedBox(height: 12),
           Text(
@@ -52,7 +53,7 @@ class CardCourse extends StatelessWidget {
               fontSize: 11,
               fontWeight: light,
             ),
-            maxLines: 2,
+            maxLines: 3,
             softWrap: true,
             overflow: TextOverflow.ellipsis,
           ),

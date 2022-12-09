@@ -23,12 +23,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    void onTap(String module) {
+    void onTap(String typeModule) {
       Go.routeWithPath(
         context: context,
         path: '/module',
         arguments: {
-          'module': module,
+          'typeModule': typeModule,
         },
       );
     }
@@ -88,58 +88,62 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Course',
+              'Dasar Pembelajaran',
               style: blackTextStyle.copyWith(
                 fontSize: 14,
                 fontWeight: medium,
               ),
             ),
             const SizedBox(height: 12),
-            // Column(
-            //   children: listCourse.map((course) {
-            //     index++;
-            //     return GestureDetector(
-            //       onTap: onTap,
-            //       child: Container(
-            //         margin: EdgeInsets.only(
-            //           bottom: index == listCourse.length ? 0 : 10,
-            //         ),
-            //         child: CardCourse(course: course),
-            //       ),
-            //     );
-            //   }).toList(),
-            // ),
-            Column(
-              children: [
-                GestureDetector(
-                  onTap: () => onTap('dart'),
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      bottom: index == listCourse.length ? 0 : 10,
-                    ),
-                    child: const CardCourse(
-                      module: 'Dart',
-                      imageUrl: 'assets/images/ic_dart.png',
-                      description:
-                          'Mempelajari dasar-dasar bahasa pemrograman dart, seperti variabel, comment dsb.',
-                    ),
-                  ),
+            GestureDetector(
+              onTap: () => onTap('mobile-programming'),
+              child: Container(
+                margin: EdgeInsets.only(
+                  bottom: index == listCourse.length ? 0 : 10,
                 ),
-                GestureDetector(
-                  onTap: () => onTap('flutter'),
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      bottom: index == listCourse.length ? 0 : 10,
-                    ),
-                    child: const CardCourse(
-                      module: 'Flutter',
-                      imageUrl: 'assets/images/ic_flutter.png',
-                      description:
-                          'Mempelajari dasar-dasar framework flutter, widget yang akan dipelajari yaitu Text, Image, Column, dsb.',
-                    ),
-                  ),
+                child: const CardCourse(
+                  module: 'Dasar Pemrograman Mobile',
+                  imageUrl: 'assets/images/ic_dasar.png',
+                  description: 'Mempelajari apa itu pemrograman mobile',
                 ),
-              ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Pemrograman Mobile',
+              style: blackTextStyle.copyWith(
+                fontSize: 14,
+                fontWeight: medium,
+              ),
+            ),
+            const SizedBox(height: 12),
+            GestureDetector(
+              onTap: () => onTap('dart'),
+              child: Container(
+                margin: EdgeInsets.only(
+                  bottom: index == listCourse.length ? 0 : 10,
+                ),
+                child: const CardCourse(
+                  module: 'Dart',
+                  imageUrl: 'assets/images/ic_dart.png',
+                  description:
+                      'Mempelajari dasar-dasar bahasa pemrograman mobile menggunakan dart, seperti variabel, comment dsb.',
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () => onTap('flutter'),
+              child: Container(
+                margin: EdgeInsets.only(
+                  bottom: index == listCourse.length ? 0 : 10,
+                ),
+                child: const CardCourse(
+                  module: 'Flutter',
+                  imageUrl: 'assets/images/ic_flutter.png',
+                  description:
+                      'Mempelajari dasar-dasar framework pemrograman mobile menggunakan flutter, widget yang akan dipelajari yaitu Text, Image, Column, dsb.',
+                ),
+              ),
             ),
           ],
         ),

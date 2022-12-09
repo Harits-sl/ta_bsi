@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:ta_bsi/src/data/dataSources/remote/detail_module_service.dart';
 import 'package:ta_bsi/src/data/models/detail_module_model.dart';
 
@@ -39,16 +42,16 @@ class DetailModuleCubit extends Cubit<DetailModuleState> {
     return newModule;
   }
 
-  DetailModuleModel findDetailModule() {
+  DetailModuleModel _findDetailModule() {
     // DetailModuleModel _course =
     //     module.where((item) => item.id == idModule).toList().first;
     // return _course;
     return module[indexListIdMateri];
   }
 
-  List splitHtml() {
+  List _splitHtml() {
     List listMateri = [];
-    DetailModuleModel detailModule = findDetailModule();
+    DetailModuleModel detailModule = _findDetailModule();
     // melakukan split html <div>
     List<String> split = (detailModule).materi.split("<div>");
 
@@ -66,7 +69,7 @@ class DetailModuleCubit extends Cubit<DetailModuleState> {
     return listMateri;
   }
 
-  void findIndexIdFromListMateri(String idModule) {
+  void _findIndexIdFromListMateri(String idModule) {
     int indexMateri = listIdMateri.indexWhere((id) => id == idModule);
     setIndexListIdMateri(indexMateri);
   }
@@ -78,14 +81,15 @@ class DetailModuleCubit extends Cubit<DetailModuleState> {
       module =
           setModule(await DetailModuleService.fetchDetailModule(typeModule));
 
-      findIndexIdFromListMateri(idModule);
+      _findIndexIdFromListMateri(idModule);
 
       // DetailModuleModel _module = await findDetailModule();
-      _module = _setModule(findDetailModule());
+      _module = _setModule(_findDetailModule());
 
-      List _listMateri = splitHtml();
+      List _listMateri = _splitHtml();
+      String _nextId = listIdMateri[indexListIdMateri + 1];
 
-      emit(DetailModuleSuccess(_module, _listMateri));
+      emit(DetailModuleSuccess(_module, _listMateri, _nextId));
     } catch (e) {
       print(e);
       emit(DetailModuleFailed(e.toString()));
@@ -96,12 +100,14 @@ class DetailModuleCubit extends Cubit<DetailModuleState> {
     try {
       emit(DetailModuleLoading());
 
-      DetailModuleModel _module = findDetailModule();
-      List _listMateri = splitHtml();
+      DetailModuleModel _module = _findDetailModule();
+      List _listMateri = _splitHtml();
+
+      String _nextId = listIdMateri[indexListIdMateri + 1];
 
       // findIndexIdFromListMateri(idModule);
 
-      emit(DetailModuleSuccess(_module, _listMateri));
+      emit(DetailModuleSuccess(_module, _listMateri, _nextId));
     } catch (e) {
       print(e);
       emit(DetailModuleFailed(e.toString()));

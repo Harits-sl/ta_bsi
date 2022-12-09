@@ -17,7 +17,7 @@ class DetailEventPage extends StatelessWidget {
     EventModel _event = event as EventModel;
 
     void onTap(String url) async {
-      if (!await launch(url)) throw 'Could not launch $url';
+      if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
     }
 
     void onTapAppBar() {
@@ -25,12 +25,8 @@ class DetailEventPage extends StatelessWidget {
     }
 
     Widget eventImage() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
-        ),
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(defaultBorderRadius),
         child: Image.asset(_event.fullImageUrl),
       );
     }
@@ -39,10 +35,24 @@ class DetailEventPage extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(
           top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
         ),
-        child: Html(data: _event.fullDescription),
+        child: Html(
+          data: _event.fullDescription,
+          style: {
+            'div': Style(
+              padding: const EdgeInsets.all(0),
+              margin: const EdgeInsets.all(0),
+            ),
+            'p': Style(
+              padding: const EdgeInsets.all(0),
+              margin: const EdgeInsets.all(0),
+              textAlign: TextAlign.justify,
+              lineHeight: const LineHeight(
+                1.8,
+              ),
+            ),
+          },
+        ),
       );
     }
 
@@ -59,7 +69,7 @@ class DetailEventPage extends StatelessWidget {
             title: 'Daftar Event',
             backgroundColor: primaryColor,
             borderRadius: 50,
-            onPressed: () => onTap('https://${_event.linkRegister}'),
+            onPressed: () => onTap(_event.linkRegister),
             textStyle: whiteTextStyle.copyWith(
               fontSize: 14,
               fontWeight: semiBold,
@@ -76,8 +86,25 @@ class DetailEventPage extends StatelessWidget {
             ListView(
               children: [
                 CustomAppBar(title: 'Event', onTap: onTapAppBar),
-                eventImage(),
-                description(),
+                Container(
+                  margin: EdgeInsets.only(
+                    top: defaultMargin,
+                    left: defaultMargin,
+                    right: defaultMargin,
+                    bottom: defaultMargin * 4,
+                  ),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: whiteColor,
+                    borderRadius: BorderRadius.circular(defaultBorderRadius),
+                  ),
+                  child: Column(
+                    children: [
+                      eventImage(),
+                      description(),
+                    ],
+                  ),
+                ),
               ],
             ),
             buttonRegistEvent(),
