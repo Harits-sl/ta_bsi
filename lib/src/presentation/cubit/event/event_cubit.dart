@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ta_bsi/src/data/dataSources/local/json/event_service.dart';
 import 'package:ta_bsi/src/data/models/event_model.dart';

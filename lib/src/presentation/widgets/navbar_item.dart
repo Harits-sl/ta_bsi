@@ -21,7 +21,7 @@ class NavbarItem extends StatelessWidget {
       color: backgroundColor,
       child: SizedBox(
         height: 55,
-        width: MediaQuery.of(context).size.width / 4,
+        width: MediaQuery.of(context).size.width / 3,
         child: InkWell(
           splashColor: lightGreyColor,
           borderRadius: BorderRadius.circular(24),

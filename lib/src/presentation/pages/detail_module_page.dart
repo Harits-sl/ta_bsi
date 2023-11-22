@@ -149,14 +149,14 @@ class _DetailModulePageState extends State<DetailModulePage> {
                     shrinkWrap: true,
                     style: {
                       'div': Style(
-                        padding: const EdgeInsets.all(0),
-                        margin: const EdgeInsets.all(0),
+                        padding: HtmlPaddings.zero,
+                        margin: Margins.zero,
                       ),
                       'p': Style(
-                        padding: const EdgeInsets.all(0),
-                        margin: const EdgeInsets.all(0),
+                        padding: HtmlPaddings.zero,
+                        margin: Margins.zero,
                         fontWeight: regular,
-                        fontSize: const FontSize(16),
+                        fontSize: FontSize(16),
                         lineHeight: const LineHeight(
                           1.6,
                         ),

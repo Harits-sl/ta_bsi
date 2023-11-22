@@ -40,12 +40,12 @@ class DetailEventPage extends StatelessWidget {
           data: _event.fullDescription,
           style: {
             'div': Style(
-              padding: const EdgeInsets.all(0),
-              margin: const EdgeInsets.all(0),
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
             ),
             'p': Style(
-              padding: const EdgeInsets.all(0),
-              margin: const EdgeInsets.all(0),
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
               textAlign: TextAlign.justify,
               lineHeight: const LineHeight(
                 1.8,

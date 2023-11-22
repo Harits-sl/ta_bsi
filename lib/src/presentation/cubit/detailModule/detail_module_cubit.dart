@@ -1,8 +1,7 @@
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ta_bsi/src/data/dataSources/remote/detail_module_service.dart';
 import 'package:ta_bsi/src/data/models/detail_module_model.dart';
 

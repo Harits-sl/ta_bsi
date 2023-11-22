@@ -43,19 +43,19 @@ class DetailArticlePage extends StatelessWidget {
           data: _article.article,
           style: {
             'div': Style(
-              padding: const EdgeInsets.all(0),
-              margin: const EdgeInsets.all(0),
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
             ),
             'p': Style(
-              padding: const EdgeInsets.all(0),
-              margin: const EdgeInsets.all(0),
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
               textAlign: TextAlign.justify,
               lineHeight: const LineHeight(
                 1.8,
               ),
             ),
             'ol': Style(
-              padding: const EdgeInsets.only(
+              padding: HtmlPaddings.only(
                 top: 8,
                 bottom: 8,
                 left: 16,
