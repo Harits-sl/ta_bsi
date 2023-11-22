@@ -56,11 +56,11 @@ class MainPage extends StatelessWidget {
                 inactiveImageUrl: 'assets/images/ic_explore.png',
                 activeImageUrl: 'assets/images/ic_explore_filled.png',
               ),
-              NavbarItem(
-                index: 2,
-                inactiveImageUrl: 'assets/images/ic_event.png',
-                activeImageUrl: 'assets/images/ic_event_filled.png',
-              ),
+              // NavbarItem(
+              //   index: 2,
+              //   inactiveImageUrl: 'assets/images/ic_event.png',
+              //   activeImageUrl: 'assets/images/ic_event_filled.png',
+              // ),
               NavbarItem(
                 index: 3,
                 inactiveImageUrl: 'assets/images/ic_profile.png',

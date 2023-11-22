@@ -6,6 +6,7 @@ import 'package:ta_bsi/src/presentation/cubit/detailModule/detail_module_cubit.d
 import 'package:ta_bsi/src/presentation/cubit/userModule/user_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
+import 'package:ta_bsi/src/utils/helper/string_helper.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
@@ -48,21 +49,32 @@ class _DetailModulePageState extends State<DetailModulePage> {
   }
 
   /// fungsi untuk button continue
-  void onPressedButtonContinue(String id, int endCourse) {
+  void onPressedButtonContinue(
+    String id,
+    int endCourse,
+    String nextId,
+  ) {
+    String splitId = StringHelper.splitId(nextId);
+
     /// jika [_index] sama dengan banyaknya paragraf
     if (_index == endCourse) {
-      context.read<DetailModuleCubit>().incrementIndexListIdMateri();
-      context.read<DetailModuleCubit>().fetchNewListModule();
       AuthState authUserState = context.read<AuthCubit>().state;
-
       if (authUserState is AuthSuccess) {
         context.read<UserModuleCubit>().updateUserModule(
               idUser: authUserState.user.id,
               idModule: id,
               moduleDone: true,
-              module: widget.arguments['module'],
+              typeModule: widget.arguments['module'],
             );
       }
+
+      if (splitId == 'quiz') {
+        Go.routeWithPath(context: context, path: '/quiz');
+        return;
+      }
+
+      context.read<DetailModuleCubit>().incrementIndexListIdMateri();
+      context.read<DetailModuleCubit>().fetchNewListModule();
 
       if (mounted) {
         // check whether the state object is in tree
@@ -89,7 +101,7 @@ class _DetailModulePageState extends State<DetailModulePage> {
       // setState(() {
       // });
 
-      WidgetsBinding.instance!.addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (_) => {
           {
             if (_scrollController.hasClients)
@@ -137,14 +149,14 @@ class _DetailModulePageState extends State<DetailModulePage> {
                     shrinkWrap: true,
                     style: {
                       'div': Style(
-                        padding: const EdgeInsets.all(0),
-                        margin: const EdgeInsets.all(0),
+                        padding: HtmlPaddings.zero,
+                        margin: Margins.zero,
                       ),
                       'p': Style(
-                        padding: const EdgeInsets.all(0),
-                        margin: const EdgeInsets.all(0),
+                        padding: HtmlPaddings.zero,
+                        margin: Margins.zero,
                         fontWeight: regular,
-                        fontSize: const FontSize(16),
+                        fontSize: FontSize(16),
                         lineHeight: const LineHeight(
                           1.6,
                         ),
@@ -157,7 +169,11 @@ class _DetailModulePageState extends State<DetailModulePage> {
       );
     }
 
-    Widget buttonContinue(String id, int endCourse) {
+    Widget buttonContinue({
+      required String id,
+      required int endCourse,
+      required String nextId,
+    }) {
       return Align(
         alignment: Alignment.bottomCenter,
         child: Container(
@@ -170,12 +186,12 @@ class _DetailModulePageState extends State<DetailModulePage> {
           ),
           child: _index != endCourse
               ? CustomButton(
-                  title: 'Tap to continue',
+                  title: 'Continue',
                   backgroundColor: Colors.transparent,
                   isNotSplash: true,
                   borderRadius: 50,
                   onPressed: () {
-                    onPressedButtonContinue(id, endCourse);
+                    onPressedButtonContinue(id, endCourse, nextId);
                   },
                   textStyle: primaryTextStyle.copyWith(
                     fontSize: 14,
@@ -183,11 +199,11 @@ class _DetailModulePageState extends State<DetailModulePage> {
                   ),
                 )
               : CustomButton(
-                  title: 'Continue',
+                  title: 'Next Course',
                   backgroundColor: primaryColor,
                   borderRadius: 50,
                   onPressed: () {
-                    onPressedButtonContinue(id, endCourse);
+                    onPressedButtonContinue(id, endCourse, nextId);
                   },
                   textStyle: whiteTextStyle.copyWith(
                     fontSize: 14,
@@ -214,8 +230,9 @@ class _DetailModulePageState extends State<DetailModulePage> {
                   appBar(state.module.namaMateri),
                   course(state.listMateri),
                   buttonContinue(
-                    state.module.id,
-                    state.listMateri.length - 1,
+                    id: state.module.id,
+                    endCourse: state.listMateri.length - 1,
+                    nextId: state.nextId,
                   ),
                 ],
               );

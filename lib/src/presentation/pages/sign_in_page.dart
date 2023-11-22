@@ -86,6 +86,7 @@ class SignInPage extends StatelessWidget {
     Widget buttonSignIn() {
       return BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
+          debugPrint('state: ${state}');
           if (state is AuthFailed) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -229,7 +230,7 @@ class SignInPage extends StatelessWidget {
                 children: [
                   formSignIn(),
                   buttonSignIn(),
-                  buttonDebugOnly(),
+                  // buttonDebugOnly(),
                   // orDivider(),
                   // buttonSignInGoogle(),
                   createAccount(),

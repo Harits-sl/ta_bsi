@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:ta_bsi/src/data/models/article_model.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/utils/route/go.dart';
@@ -15,7 +16,7 @@ class DetailArticlePage extends StatelessWidget {
     final ArticleModel _article = article as ArticleModel;
 
     void onPressed(String url) async {
-      if (!await launch(url)) throw 'Could not launch $url';
+      if (!await launchUrl(Uri.parse(url))) throw 'Could not launch $url';
     }
 
     void onTapAppBar() {
@@ -23,13 +24,13 @@ class DetailArticlePage extends StatelessWidget {
     }
 
     Widget eventImage() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(defaultBorderRadius),
+        child: Image.asset(
+          _article.imageUrl,
+          width: double.infinity,
+          fit: BoxFit.cover,
         ),
-        child: Image.asset(_article.imageUrl),
       );
     }
 
@@ -37,25 +38,43 @@ class DetailArticlePage extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(
           top: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
         ),
-        child: Text(_article.article),
+        child: Html(
+          data: _article.article,
+          style: {
+            'div': Style(
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
+            ),
+            'p': Style(
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
+              textAlign: TextAlign.justify,
+              lineHeight: const LineHeight(
+                1.8,
+              ),
+            ),
+            'ol': Style(
+              padding: HtmlPaddings.only(
+                top: 8,
+                bottom: 8,
+                left: 16,
+              ),
+            ),
+          },
+        ),
       );
     }
 
-    Widget seeMore() {
+    Widget readMore() {
       return Container(
         margin: EdgeInsets.only(
-          top: 12,
-          left: defaultMargin,
-          right: defaultMargin,
-          bottom: defaultMargin,
+          top: defaultBorderRadius,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('See more:'),
+            const Text('Read more:'),
             TextButton(
               onPressed: () => onPressed(_article.link),
               child: Text(_article.link),
@@ -70,9 +89,21 @@ class DetailArticlePage extends StatelessWidget {
         child: ListView(
           children: [
             CustomAppBar(title: 'Article', onTap: onTapAppBar),
-            eventImage(),
-            description(),
-            seeMore(),
+            Container(
+              margin: EdgeInsets.all(defaultMargin),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(defaultBorderRadius),
+              ),
+              child: Column(
+                children: [
+                  eventImage(),
+                  description(),
+                  readMore(),
+                ],
+              ),
+            ),
           ],
         ),
       );

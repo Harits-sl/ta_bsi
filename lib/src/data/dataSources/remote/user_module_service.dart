@@ -93,9 +93,9 @@ class UserModuleService {
     required String idUser,
     required String idModule,
     required bool moduleDone,
-    required String module,
+    required String typeModule,
   }) async {
-    await ref.child('user-module/$idUser/$module').update({
+    await ref.child('user-module/$idUser/$typeModule').update({
       idModule: moduleDone,
     });
   }

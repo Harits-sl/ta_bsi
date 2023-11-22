@@ -84,8 +84,7 @@ class MyApp extends StatelessWidget {
               ModulePage(ModalRoute.of(context)?.settings.arguments),
           '/detail-module': (context) =>
               DetailModulePage(ModalRoute.of(context)?.settings.arguments),
-          '/quiz': (context) =>
-              QuizPage(ModalRoute.of(context)?.settings.arguments),
+          '/quiz': (context) => const QuizPage(),
           '/submission': (context) =>
               SubmissionPage(ModalRoute.of(context)?.settings.arguments),
           '/detail-event': (context) =>

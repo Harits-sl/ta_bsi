@@ -1,5 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:ta_bsi/src/data/dataSources/remote/user_module_service.dart';
 import 'package:ta_bsi/src/data/models/user_module_model.dart';
 
@@ -43,14 +44,15 @@ class UserModuleCubit extends Cubit<UserModuleState> {
     required String idUser,
     required String idModule,
     required bool moduleDone,
-    required String module,
+    required String typeModule,
   }) async {
     try {
+      debugPrint('typeModule: $typeModule');
       UserModuleService().updateUserModuleDone(
         idUser: idUser,
         idModule: idModule,
         moduleDone: moduleDone,
-        module: module,
+        typeModule: typeModule,
       );
     } catch (e) {
       emit(UserModuleFailed(e.toString()));

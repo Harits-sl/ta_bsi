@@ -13,6 +13,7 @@ class YoutubePage extends StatelessWidget {
 
     return Scaffold(
       body: CustomInAppWebView(idYoutube: _youtube.idYoutube),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

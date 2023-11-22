@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:ta_bsi/src/data/models/quiz_model.dart';
+import 'package:ta_bsi/src/presentation/cubit/auth/auth_cubit.dart';
 import 'package:ta_bsi/src/presentation/cubit/quiz/quiz_cubit.dart';
+import 'package:ta_bsi/src/presentation/cubit/userModule/user_module_cubit.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_app_bar.dart';
 import 'package:ta_bsi/src/presentation/widgets/custom_button.dart';
 import 'package:ta_bsi/src/presentation/widgets/item_button_answer.dart';
@@ -9,9 +12,7 @@ import 'package:ta_bsi/src/utils/route/go.dart';
 import 'package:ta_bsi/theme.dart';
 
 class QuizPage extends StatefulWidget {
-  const QuizPage(this.arguments, {Key? key}) : super(key: key);
-
-  final dynamic arguments;
+  const QuizPage({Key? key}) : super(key: key);
 
   @override
   State<QuizPage> createState() => _QuizPageState();
@@ -65,7 +66,7 @@ class _QuizPageState extends State<QuizPage> {
   @override
   void initState() {
     super.initState();
-    context.read<QuizCubit>().fetchListQuiz('dart');
+    context.read<QuizCubit>().fetchListQuiz();
 
     _answer = Answer.notAnswered;
     _isAnswered = false;
@@ -178,6 +179,10 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
+  void onTapBack() {
+    Go.back(context);
+  }
+
   void onTapButtonAnswer({
     required String correctAnswer,
     required String tapKeyAnswer,
@@ -204,11 +209,22 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void onTapButtonContinue() {
-    /// jika [_indexForQuestion] sama dengan banyaknya pertanyaan
-    if (_indexForQuestion == 4) {
+    /// jika [_isAnswered] true dan [_indexForQuestion] sama dengan
+    /// banyaknya pertanyaan maka tampilkan dialog finish quiz
+    if (_isAnswered && _indexForQuestion == 4) {
       setState(() {
         _isQuizDone = true;
         showDialogFinishQuiz();
+
+        AuthState authUserState = context.read<AuthCubit>().state;
+        if (authUserState is AuthSuccess) {
+          context.read<UserModuleCubit>().updateUserModule(
+                idUser: authUserState.user.id,
+                idModule: context.read<QuizCubit>().idQuiz,
+                moduleDone: true,
+                typeModule: context.read<QuizCubit>().typeModule,
+              );
+        }
       });
       return;
     }
@@ -236,12 +252,14 @@ class _QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     Widget appBar() {
-      return CustomAppBar(onTap: () {});
+      return CustomAppBar(onTap: onTapBack);
     }
 
     Widget titleQuestion(String title) {
       return Padding(
-        padding: EdgeInsets.only(bottom: defaultMargin),
+        padding: EdgeInsets.all(
+          defaultMargin,
+        ),
         child: Center(
           child: Text(
             title,
@@ -249,21 +267,24 @@ class _QuizPageState extends State<QuizPage> {
               fontSize: 16,
               fontWeight: semiBold,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       );
     }
 
     Widget imageQuestion(String imageUrl) {
-      return Container(
-        margin: EdgeInsets.only(
-          bottom: defaultMargin,
-          left: defaultMargin,
-          right: defaultMargin,
-        ),
-        child: Image.asset(imageUrl),
-        // child: Image.asset('assets/images/ic_flutter.png'),
-      );
+      return imageUrl == ''
+          ? Container()
+          : Container(
+              margin: EdgeInsets.only(
+                bottom: defaultMargin,
+                left: defaultMargin,
+                right: defaultMargin,
+              ),
+              child: Image.asset(imageUrl),
+              // child: Image.asset('assets/images/ic_flutter.png'),
+            );
     }
 
     Widget listButtonAnswer(List<QuizModel> quiz) {
@@ -312,13 +333,27 @@ class _QuizPageState extends State<QuizPage> {
           right: defaultMargin,
           bottom: 45 + 20 + 16 + 12, // tinggi buttonContinue
         ),
-        child: Text(
-          explanation,
-          style: blackTextStyle.copyWith(
-            fontWeight: regular,
-            height: 1.8,
-          ),
-          textAlign: TextAlign.justify,
+        child: Html(
+          data: explanation,
+          style: {
+            'div': Style(
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
+            ),
+            'p': Style(
+              padding: HtmlPaddings.zero,
+              margin: Margins.zero,
+              textAlign: TextAlign.justify,
+              lineHeight: const LineHeight(
+                1.8,
+              ),
+            ),
+          },
+          // style: blackTextStyle.copyWith(
+          //   fontWeight: regular,
+          //   height: 1.8,
+          // ),
+          // textAlign: TextAlign.justify,
         ),
       );
     }

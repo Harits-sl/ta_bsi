@@ -14,8 +14,13 @@ class DetailModuleLoading extends DetailModuleState {}
 class DetailModuleSuccess extends DetailModuleState {
   final DetailModuleModel module;
   final List listMateri;
+  final String nextId;
 
-  const DetailModuleSuccess(this.module, this.listMateri);
+  const DetailModuleSuccess(
+    this.module,
+    this.listMateri,
+    this.nextId,
+  );
 
   @override
   List<Object> get props => [module, listMateri];

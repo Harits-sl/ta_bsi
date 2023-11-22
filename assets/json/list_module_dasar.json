@@ -1,0 +1,41 @@
+[
+  {
+    "id": "modul-1",
+    "level": "Level 1",
+    "modul": "Pengenalan Pemrograman Mobile",
+    "materi_kelas": [
+      {
+        "id": "materi-dasar-1",
+        "nama_materi": "Apa itu Pemrograman Mobile?",
+        "durasi": 3
+      },
+      {
+        "id": "materi-dasar-2",
+        "nama_materi": "Macam-Macam Perangkat Mobile",
+        "durasi": 3
+      },
+      {
+        "id": "materi-dasar-3",
+        "nama_materi": "Sistem Operasi atau OS Mobile",
+        "durasi": 3
+      },
+      {
+        "id": "materi-dasar-4",
+        "nama_materi": "Jenis Bahasa Pemrograman yang digunakan",
+        "durasi": 3
+      }
+    ]
+  },
+  {
+    "id": "modul-2",
+    "level": "Level 2",
+    "modul": "Exercise",
+    "materi_kelas": [
+      {
+        "id": "quiz-1",
+        "nama_materi": "Quiz",
+        "durasi": 3
+      }
+    ]
+  }
+]
