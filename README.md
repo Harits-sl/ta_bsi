@@ -11,6 +11,9 @@ cd ta_bsi
 flutter pub get
 ```
 
+# Overview
+<img src="https://github.com/Harits-sl/ta_bsi/blob/master/assets/ss_project/ss_1.png" width="200" /> <img src="https://github.com/Harits-sl/ta_bsi/blob/master/assets/ss_project/ss_2.png" width="200" /> <img src="https://github.com/Harits-sl/ta_bsi/blob/master/assets/ss_project/ss_8.png" width="200" />
+
 # Package
 package yang digunakan untuk projek ini
 
